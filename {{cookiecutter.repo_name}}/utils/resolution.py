@@ -23,10 +23,13 @@ def get_resolution():
         elif PLATFORM == 'macosx':
             from subprocess import check_output
             from os.path import join, dirname
+            import os
+            import stat
+            visFile = join(dirname(__file__), 'visibleFrame')
+            st = os.stat(visFile)
+            os.chmod(visFile, st.st_mode|stat.S_IEXEC)
             width, height = [int(i) for i in \
-                                check_output(
-                                    join(dirname(__file__), 'visibleFrame'))
-                                .split()]
+                                check_output(visFile).split()]
 
         if (height, width) == (None, None):
             Exception('Can\'t get screen resolution.')
