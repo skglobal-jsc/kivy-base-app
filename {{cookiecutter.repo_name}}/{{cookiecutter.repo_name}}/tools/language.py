@@ -1,3 +1,8 @@
+'''
+Source:
+https://blog.fossasia.org/tag/language-localization/
+'''
+
 
 from kivy.lang import Observable
 from kivy.logger import Logger

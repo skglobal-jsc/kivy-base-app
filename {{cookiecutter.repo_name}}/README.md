@@ -13,7 +13,51 @@
 
 ## Usage
 
-### Before launch app
+### Launching the app
+
+Go to project folder and run:
+
+```bash
+# On Mac, Linux
+source ./.env/bin/activate
+# On Windows
+.\\.env\\Scripts\\activate
+python main.py
+```
+
+### Running the testsuite
+
+Go to project folder and run:
+
+```bash
+# On Mac, Linux
+source ./.env/bin/activate
+# On Windows
+.\\.env\\Scripts\\activate
+pytest
+```
+
+### Multi-language support
+
+- To support multi-language, add ObservableTranslation to app.py:
+
+```python
+from .tools.language import ObservableTranslation
+
+class MainApp(App):
+    tr = ObservableTranslation('en', 'imgtrans')
+    . . .
+```
+
+- Tag all text:
+
+```kv
+#:set tr app.tr
+
+Toolbar:
+    id: toolbar
+    title: tr._('History')
+```
 
 - Collect tag language (like `_('text')`):
 
@@ -26,13 +70,5 @@ python utils/pygettext.py -o {{cookiecutter.repo_name}}/po/en.po {{cookiecutter.
 ```
 python utils/msgfmt.py -o {{cookiecutter.repo_name}}/data/locales/ja/LC_MESSAGES/lang.mo {{cookiecutter.repo_name}}/po/ja.po
 ```
-
-### Launching the app
-
-Go to project folder and run `python main.py`
-
-### Running the testsuite
-
-Go to project folder and run `pytest`
 
 ## Known issues

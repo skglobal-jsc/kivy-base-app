@@ -1,7 +1,10 @@
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.base import ExceptionManager
 
 from utils.platform import PLATFORM
+
+from .tools.bug_reporter import DesignerException
 
 
 class {{cookiecutter.project_name|replace(' ', '')}}App(App):
@@ -15,5 +18,8 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
         # Display FPS of app
         # from .tools.show_fps import ShowFPS
         # ShowFPS(root)
+
+        # Add exception handler
+        # ExceptionManager.add_handler(DesignerException())
 
         return root
