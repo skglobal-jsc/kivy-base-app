@@ -4,7 +4,7 @@ from kivy.base import ExceptionManager
 
 from utils.platform import PLATFORM
 
-from .tools.bug_reporter import DesignerException
+# from .tools.bug_reporter import DesignerException
 
 
 class {{cookiecutter.project_name|replace(' ', '')}}App(App):
