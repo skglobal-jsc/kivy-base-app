@@ -68,9 +68,6 @@ def pre_run_app(app_name):
         if IS_BINARY:
             KIVY_HOME = os.path.join(expanduser('~'), '.'+app_name, '.kivy')
 
-    elif PLATFORM == 'ios':
-        os.environ['KIVY_IMAGE'] = 'imageio,tex,gif'
-
     FIRST_RUN = not os.path.exists(KIVY_HOME)
 
     # Set home Kivy and load config

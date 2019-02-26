@@ -21,7 +21,7 @@ Go to project folder and run:
 # On Mac, Linux
 source ./.env/bin/activate
 # On Windows
-.\\.env\\Scripts\\activate
+.\.env\Scripts\activate
 python main.py
 ```
 
@@ -33,9 +33,43 @@ Go to project folder and run:
 # On Mac, Linux
 source ./.env/bin/activate
 # On Windows
-.\\.env\\Scripts\\activate
+.\.env\Scripts\activate
 pytest
 ```
+
+### Packaging project
+
+**Make sure you follow all steps in [Environment preparing](https://kivy-skglobal.readthedocs.io/en/latest/#environment-preparing)**
+
+- For Windows/MacOS, you must activate env and run pyinstaller:
+
+```bash
+# On Mac, Linux
+source ./.env/bin/activate
+# On Windows
+.\.env\Scripts\activate
+pyinstaller ./main.spec
+```
+
+- For Android/iOS, DO NOT packing app on env, should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
+
+    ```
+    pip install pbxproj git+https://github.com/Thong-Tran/buildozer.git@fix-errors -U
+    ```
+
+    - Android: (you should have java 8 and python 2.7)
+
+    ```
+    buildozer android debug
+    ```
+
+    - iOS: (you should have XCode and update the latest iOS SDK)
+
+    ```
+    buildozer ios xcode
+    ```
+
+If you get error, read [this](https://kivy-skglobal.readthedocs.io/en/latest/development/packaging-project/) to fix it or contact to python@sk-global.biz for further instructions.
 
 ### Multi-language support
 
@@ -54,9 +88,8 @@ class MainApp(App):
 ```kv
 #:set tr app.tr
 
-Toolbar:
-    id: toolbar
-    title: tr._('History')
+Label:
+    text: tr._('History')
 ```
 
 - Collect tag language (like `_('text')`):
