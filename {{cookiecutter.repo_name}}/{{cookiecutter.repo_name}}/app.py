@@ -13,7 +13,7 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
     """
 
     def build(self):
-        root = Builder.load_file('{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}.kv')
+        root = Builder.load_file('{{cookiecutter.repo_name}}/main-layout.kv')
 
         # Display FPS of app
         # from .tools.show_fps import ShowFPS
