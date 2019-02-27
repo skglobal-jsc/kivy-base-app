@@ -42,18 +42,20 @@ pytest
 **Make sure you follow all steps in [Environment preparing](https://kivy-skglobal.readthedocs.io/en/latest/#environment-preparing) and check all TODO**
 
 - For Windows/MacOS, you must activate env and run pyinstaller:
+    - Output folder will save in `dist` folder.
+    - You must close all app and the opened file or folder in `dist` folder before packaging app. If you not, pyinstaller cann't build project.
 
-```bash
-# On Mac, Linux
-source ./.env/bin/activate
-# On Windows
-.\.env\Scripts\activate
-pyinstaller ./main.spec
-```
+    ```bash
+    # On Mac, Linux
+    source ./.env/bin/activate
+    # On Windows
+    .\.env\Scripts\activate
+    pyinstaller ./main.spec
+    ```
 
 - To create installer:
-    - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`.
-    - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Installer {{cookiecutter.project_name}}.pkg'`
+    - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`. Output file will save in `Output` folder.
+    - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}}.pkg'`
 
 - For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
 
