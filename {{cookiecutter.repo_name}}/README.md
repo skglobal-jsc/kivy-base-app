@@ -6,10 +6,10 @@
 
 
 - TODO
-    - Add new app icon in `{{cookiecutter.repo_name}}/path`.
-    - Change android.ndk_path in buildozer.spec
+    - Add new app icon in `{{cookiecutter.repo_name}}/data` (replace existing file).
+    - Change `build_dir` and `ios.codesign.debug` in buildozer.spec when create new or clone project (do not commit it to git).
     - Generate a new GUID for Inno setup.
-    - When change version, remember change in files: main.py, create-installer.iss
+    - When change version, remember change in files: main.py and create-installer.iss
 
 ## Usage
 
@@ -52,10 +52,6 @@ pyinstaller ./main.spec
 ```
 
 - For Android/iOS, DO NOT packing app on env, should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
-
-    ```
-    pip install pbxproj git+https://github.com/Thong-Tran/buildozer.git@fix-errors -U
-    ```
 
     - Android: (you should have java 8 and python 2.7)
 

@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,mo,ttf,ini,wav
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-#source.exclude_dirs =
+source.exclude_dirs = tests, bin, build, dist, logs
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
@@ -37,12 +37,12 @@ version.filename = %(source.dir)s/main.py
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements =
-    hostpython3,
+    python2,
     kivy==1.10.1
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-#requirements.source.kivymd = /home/kivy/Documents/KivyMD/
+# requirements.source.kivy = ../../kivy
 
 # (list) Garden requirements
 #garden_requirements =
@@ -70,7 +70,7 @@ orientation = {{cookiecutter.orientation}}
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.10.1
+osx.kivy_version = {{cookiecutter.minimum_kivy_version}}
 
 #
 # Android specific
@@ -90,23 +90,26 @@ fullscreen = 1
 #android.permissions = READ_EXTERNAL_STORAGE,INTERNET
 
 # (int) Android API to use
-android.api = 21
+android.api = 26
 
 # (int) Minimum API required
 android.minapi = 21
 
 # (int) Android SDK version to use
-android.sdk = 21
+android.sdk = 26
 
 # (str) Android NDK version to use
-#android.ndk = 17c
-android.ndk = 10
+android.ndk = 17c
+# android.ndk = 10
+
+# (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
+#android.ndk_api = 21
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
-android.ndk_path = /Users/ivc/.buildozer/android/platform/crystax-ndk-10.3.2
+# android.ndk_path = /Users/ivc/.buildozer/android/platform/crystax-ndk-10.3.2
 
 # (str) Android SDK directory (if empty, it will be automatically downloaded.)
 #android.sdk_path = /Users/ivc/Library/Android/sdk
@@ -118,6 +121,12 @@ android.ndk_path = /Users/ivc/.buildozer/android/platform/crystax-ndk-10.3.2
 # This can be useful to avoid excess Internet downloads or save time
 # when an update is due and you just want to test/build your package
 # android.skip_update = False
+
+# (bool) If True, then automatically accept SDK license
+# agreements. This is intended for automation only. If set to False,
+# the default, you will be shown the license when first running
+# buildozer.
+# android.accept_sdk_license = False
 
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.renpy.android.PythonActivity
@@ -153,7 +162,7 @@ android.ndk_path = /Users/ivc/.buildozer/android/platform/crystax-ndk-10.3.2
 #android.add_activites = com.example.ExampleActivity
 
 # (str) python-for-android branch to use, defaults to stable
-p4a.branch = master
+p4a.branch = update-kivent
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled
@@ -170,7 +179,7 @@ p4a.branch = master
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
-#android.add_libs_armeabi_v7a = libs/android-armv7/*.so
+#android.add_libs_armeabi_v7a = libs/android-v7/*.so
 #android.add_libs_x86 = libs/android-x86/*.so
 #android.add_libs_mips = libs/android-mips/*.so
 
@@ -199,7 +208,7 @@ android.arch = armeabi-v7a
 #
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
-#p4a.source_dir = /home/kivy/Documents/python-for-android/
+#p4a.source_dir =
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
 #p4a.local_recipes =
@@ -219,29 +228,39 @@ p4a.bootstrap = sdl2
 #
 
 # (str) Path to a custom kivy-ios folder
-#ios.kivy_ios_dir = /Users/ivc/kivy-ios
+#ios.kivy_ios_dir = ../kivy-ios
+# Alternately, specify the URL and branch of a git checkout:
+ios.kivy_ios_url = https://github.com/kivy/kivy-ios
+ios.kivy_ios_branch = master
+
+# Another platform dependency: ios-deploy
+# Uncomment to use a custom checkout
+#ios.ios_deploy_dir = ../ios_deploy
+# Or specify URL and branch
+ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
+ios.ios_deploy_branch = 1.7.0
 
 # (str) Name of the certificate to use for signing the debug version
 # Get a list of available identities: buildozer ios list_identities
-ios.codesign.debug = "iPhone Developer: apple@sk-global.biz (6EC5KQW67Q)"
+ios.codesign.debug = "iPhone Developer: <lastname> <firstname> (<hexstring>)"
 
 # (str) Name of the certificate to use for signing the release version
-ios.codesign.release = "iPhone Developer: apple@sk-global.biz (6EC5KQW67Q)"
+#ios.codesign.release = %(ios.codesign.debug)s
 
 
 [buildozer]
 
 # (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
-log_level = 0
+log_level = 1
 
 # (int) Display warning if buildozer is run as root (0 = False, 1 = True)
 warn_on_root = 1
 
 # (str) Path to build artifact storage, absolute or relative to spec file
-build_dir = /Users/ivc/kivy/.buildozer
+build_dir =
 
 # (str) Path to build output (i.e. .apk, .ipa) storage
-#bin_dir = ./bin
+# bin_dir = ./bin
 
 #    -----------------------------------------------------------------------------
 #    List as sections
