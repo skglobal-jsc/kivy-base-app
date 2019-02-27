@@ -6,9 +6,9 @@
 
 
 - TODO
-    - Add new app icon in `{{cookiecutter.repo_name}}/data` (replace existing file).
-    - Change `build_dir` and `ios.codesign.debug` in buildozer.spec when create new or clone project (do not commit it to git).
-    - Generate a new GUID for Inno setup.
+    - Add new app icon in `{{cookiecutter.repo_name}}/data` (replace existing file) and remove this todo.
+    - Change `build_dir` and `ios.codesign.debug` in buildozer.spec when create new or clone project to local (do not commit it to git).
+    - Generate a new GUID for Inno setup when create new project and remove this todo.
     - When change version, remember change in files: main.py and create-installer.iss
 
 ## Usage
@@ -39,7 +39,7 @@ pytest
 
 ### Packaging project
 
-**Make sure you follow all steps in [Environment preparing](https://kivy-skglobal.readthedocs.io/en/latest/#environment-preparing)**
+**Make sure you follow all steps in [Environment preparing](https://kivy-skglobal.readthedocs.io/en/latest/#environment-preparing) and check all TODO**
 
 - For Windows/MacOS, you must activate env and run pyinstaller:
 
@@ -51,7 +51,11 @@ source ./.env/bin/activate
 pyinstaller ./main.spec
 ```
 
-- For Android/iOS, DO NOT packing app on env, should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
+    - To create installer:
+        - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`.
+        - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Installer {{cookiecutter.project_name}}.pkg'`
+
+- For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
 
     - Android: (you should have java 8 and python 2.7)
 
@@ -59,11 +63,15 @@ pyinstaller ./main.spec
     buildozer android debug
     ```
 
+    File apk will be saved in `bin` folder.
+
     - iOS: (you should have XCode and update the latest iOS SDK)
 
     ```
     buildozer ios xcode
     ```
+
+    When finish, this will open XCode and we will build app in that.
 
 If you get error, read [this](https://kivy-skglobal.readthedocs.io/en/latest/development/packaging-project/) to fix it or contact to python@sk-global.biz for further instructions.
 
