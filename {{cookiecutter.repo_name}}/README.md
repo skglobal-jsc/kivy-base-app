@@ -51,9 +51,9 @@ source ./.env/bin/activate
 pyinstaller ./main.spec
 ```
 
-    - To create installer:
-        - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`.
-        - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Installer {{cookiecutter.project_name}}.pkg'`
+- To create installer:
+    - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`.
+    - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Installer {{cookiecutter.project_name}}.pkg'`
 
 - For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
 
