@@ -81,10 +81,10 @@
         "advanced": true
     },
     "orientation": {
-        "hint_text": "Author",
+        "hint_text": "Orientation",
         "required": false,
-        "helper_text_mode": "none",
-        "helper_text": "",
+        "helper_text_mode": "on_focus",
+        "helper_text": "portrait - landscape - all",
         "regex": "",
         "multiline": false,
         "advanced": true
