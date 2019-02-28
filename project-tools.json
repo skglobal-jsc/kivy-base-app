@@ -1,4 +1,13 @@
 {
+    "project_name": {
+        "hint_text": "Full name of project",
+        "required": true,
+        "helper_text_mode": "on_error",
+        "helper_text": "Only accept capword and number",
+        "regex": "^[a-zA-Z][a-zA-Z0-9 ]*$",
+        "multiline": false,
+        "advanced": false
+    },
     "full_name": {
         "hint_text": "Author",
         "required": false,
@@ -26,21 +35,12 @@
         "multiline": false,
         "advanced": false
     },
-    "github_username": {
-        "hint_text": "Github username",
-        "required": false,
-        "helper_text_mode": "none",
-        "helper_text": "",
-        "regex": "",
-        "multiline": false,
-        "advanced": true
-    },
-    "project_name": {
-        "hint_text": "Full name of project",
+    "version": {
+        "hint_text": "Version",
         "required": true,
         "helper_text_mode": "on_error",
-        "helper_text": "Only accept capword and number",
-        "regex": "^[a-zA-Z][a-zA-Z0-9 ]*$",
+        "helper_text": "Should like 1.0.0",
+        "regex": "^[0-9]*.[0-9]*.[0-9]*$",
         "multiline": false,
         "advanced": false
     },
@@ -71,15 +71,6 @@
         "multiline": true,
         "advanced": false
     },
-    "version": {
-        "hint_text": "Version",
-        "required": true,
-        "helper_text_mode": "on_error",
-        "helper_text": "Should like 1.0.0",
-        "regex": "^[0-9]*.[0-9]*.[0-9]*$",
-        "multiline": false,
-        "advanced": false
-    },
     "minimum_kivy_version": {
         "hint_text": "Kivy version",
         "required": false,
@@ -91,6 +82,15 @@
     },
     "orientation": {
         "hint_text": "Author",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": true
+    },
+    "github_username": {
+        "hint_text": "Github username",
         "required": false,
         "helper_text_mode": "none",
         "helper_text": "",
