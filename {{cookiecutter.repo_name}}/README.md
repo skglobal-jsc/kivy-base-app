@@ -61,7 +61,7 @@ pyinstaller ./main.spec
     - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`. Output file will save in `Output` folder.
     - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}}.pkg'`
 
-- For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
+- For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to pack and have [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
     - Android: (you should have java 8 and python 2.7)
 
@@ -88,7 +88,7 @@ If you get error, read [this](https://kivy-skglobal.readthedocs.io/en/latest/dev
 ```python
 from .tools.language import ObservableTranslation
 
-class MainApp(App):
+class {{cookiecutter.project_name|replace(' ', '')}}App(App):
     tr = ObservableTranslation('en', 'imgtrans')
     . . .
 ```

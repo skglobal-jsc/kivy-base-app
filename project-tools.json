@@ -1,0 +1,101 @@
+{
+    "full_name": {
+        "hint_text": "Author",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": false
+    },
+    "email": {
+        "hint_text": "Email",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": false
+    },
+    "app_url": {
+        "hint_text": "App url",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": false
+    },
+    "github_username": {
+        "hint_text": "Github username",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": true
+    },
+    "project_name": {
+        "hint_text": "Full name of project",
+        "required": true,
+        "helper_text_mode": "on_error",
+        "helper_text": "Only accept capword and number",
+        "regex": "^[a-zA-Z][a-zA-Z0-9 ]*$",
+        "multiline": false,
+        "advanced": false
+    },
+    "repo_name": {
+        "hint_text": "Package/Repository name",
+        "required": true,
+        "helper_text_mode": "on_error",
+        "helper_text": "Only lowcase and no whitespace",
+        "regex": "^[a-z]*$",
+        "multiline": false,
+        "advanced": false
+    },
+    "package_domain": {
+        "hint_text": "Package domain",
+        "required": true,
+        "helper_text_mode": "on_error",
+        "helper_text": "Only lowcase and no whitespace",
+        "regex": "^[a-z.]*$",
+        "multiline": false,
+        "advanced": false
+    },
+    "project_short_description": {
+        "hint_text": "Description",
+        "required": false,
+        "helper_text_mode": "on_focus",
+        "helper_text": "Support multiline",
+        "regex": "",
+        "multiline": true,
+        "advanced": false
+    },
+    "version": {
+        "hint_text": "Version",
+        "required": true,
+        "helper_text_mode": "on_error",
+        "helper_text": "Should like 1.0.0",
+        "regex": "^[0-9]*.[0-9]*.[0-9]*$",
+        "multiline": false,
+        "advanced": false
+    },
+    "minimum_kivy_version": {
+        "hint_text": "Kivy version",
+        "required": false,
+        "helper_text_mode": "on_error",
+        "helper_text": "Should like 1.0.0",
+        "regex": "^[0-9]*.[0-9]*.[0-9]*$",
+        "multiline": false,
+        "advanced": false
+    },
+    "orientation": {
+        "hint_text": "Author",
+        "required": false,
+        "helper_text_mode": "none",
+        "helper_text": "",
+        "regex": "",
+        "multiline": false,
+        "advanced": false
+    }
+}
