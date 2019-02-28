@@ -31,8 +31,8 @@ block_cipher = None
 
 
 # Embedde kivy file into python file
-# from utils import embedde_kivy_file
-# embedde_kivy_file('{{cookiecutter.repo_name}}')
+# from buildtools import embedde_kivy_file
+# pathex = [embedde_kivy_file('{{cookiecutter.repo_name}}')]
 
 a = Analysis(['main.py'],
              pathex=['.'],

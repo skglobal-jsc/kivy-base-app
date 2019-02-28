@@ -2,6 +2,10 @@
 
 {{cookiecutter.project_short_description}}
 
+Table of Contents:
+
+[TOC]
+
 ## Features
 
 
@@ -43,7 +47,7 @@ pytest
 
 - For Windows/MacOS, you must activate env and run pyinstaller:
     - Output folder will save in `dist` folder.
-    - You must close all app and the opened file or folder in `dist` folder before packaging app. If you not, pyinstaller cann't build project.
+    - You must close all app and the opened file or folder in `dist` folder before packaging app. If you not, pyinstaller can't build project.
 
     ```bash
     # On Mac, Linux
@@ -57,7 +61,7 @@ pytest
     - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`. Output file will save in `Output` folder.
     - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}}.pkg'`
 
-- For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors).
+- For Android/iOS, DO NOT packing app in env (to quit env run `deactivate`), should use Mac to packing and install [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
     - Android: (you should have java 8 and python 2.7)
 

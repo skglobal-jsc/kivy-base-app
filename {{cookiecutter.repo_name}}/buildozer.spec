@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,mo,ttf,ini,wav
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, build, dist, logs
+source.exclude_dirs = tests, bin, build, dist, logs, xcode-visibleFrame, kivy, buildtools
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
