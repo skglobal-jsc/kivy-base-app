@@ -87,7 +87,7 @@
         "helper_text": "Should like 1.0.0",
         "regex": "^[0-9]*.[0-9]*.[0-9]*$",
         "multiline": false,
-        "advanced": false
+        "advanced": true
     },
     "orientation": {
         "hint_text": "Author",
@@ -96,6 +96,6 @@
         "helper_text": "",
         "regex": "",
         "multiline": false,
-        "advanced": false
+        "advanced": true
     }
 }
