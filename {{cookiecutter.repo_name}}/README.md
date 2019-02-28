@@ -49,13 +49,13 @@ pytest
     - Output folder will save in `dist` folder.
     - You must close all app and the opened file or folder in `dist` folder before packaging app. If you not, pyinstaller can't build project.
 
-    ```bash
-    # On Mac, Linux
-    source ./.env/bin/activate
-    # On Windows
-    .\.env\Scripts\activate
-    pyinstaller ./main.spec
-    ```
+```bash
+# On Mac, Linux
+source ./.env/bin/activate
+# On Windows
+.\.env\Scripts\activate
+pyinstaller ./main.spec
+```
 
 - To create installer:
     - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `create-installer.iss`. Output file will save in `Output` folder.
@@ -65,7 +65,7 @@ pytest
 
     - Android: (you should have java 8 and python 2.7)
 
-    ```
+    ```bash
     buildozer android debug
     ```
 
@@ -73,7 +73,7 @@ pytest
 
     - iOS: (you should have XCode and update the latest iOS SDK)
 
-    ```
+    ```bash
     buildozer ios xcode
     ```
 
@@ -104,13 +104,13 @@ Label:
 
 - Collect tag language (like `_('text')`):
 
-```
+```bash
 python utils/pygettext.py -o {{cookiecutter.repo_name}}/po/en.po {{cookiecutter.repo_name}}
 ```
 
 - Compile file language(.po):
 
-```
+```bash
 python utils/msgfmt.py -o {{cookiecutter.repo_name}}/data/locales/ja/LC_MESSAGES/lang.mo {{cookiecutter.repo_name}}/po/ja.po
 ```
 
