@@ -83,10 +83,7 @@
     "orientation": {
         "hint_text": "Orientation",
         "required": false,
-        "helper_text_mode": "on_focus",
-        "helper_text": "portrait - landscape - all",
-        "regex": "",
-        "multiline": false,
+        "list": true,
         "advanced": true
     },
     "github_username": {
