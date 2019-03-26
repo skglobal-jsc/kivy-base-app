@@ -22,12 +22,28 @@ def _get_platform():
         return 'linux'
     return 'unknown'
 
+
 PLATFORM = _get_platform()
 IS_BINARY = False
 FIRST_RUN = False
 KIVY_HOME = './.kivy'
 
 def pre_run_app(app_name, is_release):
+    '''
+    KIVY_HOME = './.kivy' when run 'python main.py'
+
+    When app is packed:
+    - Windows: KIVY_HOME = '%APPDATA%/<app_name>/.kivy
+    - Mac:  KIVY_HOME = '~/.<app_name>/.kivy'
+
+    This function fix:
+
+    HiDPI on Windows
+
+    Run python in .app when packing by pyinstaller
+
+    Not found modules when build app by buildozer
+    '''
     global IS_BINARY, FIRST_RUN, KIVY_HOME
 
     if PLATFORM == 'win':
@@ -44,8 +60,8 @@ def pre_run_app(app_name, is_release):
             # if errorCode != 0:
             # Set DPI Awareness  (Windows 10 and 8)
             # the argument is the awareness level, which can be 0, 1 or 2
-        if shcore.SetProcessDpiAwareness(2) != 0:
-            raise OSError
+            if shcore.SetProcessDpiAwareness(2) != 0:
+                raise OSError
         except OSError:
             print('Warning: Can\'t set process DPI Awareness')
 
@@ -72,9 +88,23 @@ def pre_run_app(app_name, is_release):
         if IS_BINARY:
             KIVY_HOME = os.path.join(expanduser('~'), '.'+app_name, '.kivy')
 
+    # Fix not found modules when build app by buildozer
+    if PLATFORM in ('ios', 'android'):
+        try:
+            import sitecustomize
+        except ImportError:
+            pass
+
+        IS_BINARY = True
+
     FIRST_RUN = not os.path.exists(KIVY_HOME)
 
-    # Set home Kivy and load config
+    if is_release and not IS_BINARY:
+        print('-'*20)
+        print('Warning: You are in RELEASE. Please change IS_RELEASE in main.py back to False')
+        print('-'*20)
+
+    # Set KIVY_HOME and load config
     if PLATFORM in ('win', 'macosx'):
         os.environ['KIVY_HOME'] = KIVY_HOME
 
@@ -92,9 +122,3 @@ def pre_run_app(app_name, is_release):
 
             with open(os.path.join(KIVY_HOME, 'config.ini'), 'w') as configfile:
                 config.write(configfile)
-
-    if PLATFORM in ('ios', 'android'):
-        try:
-            import sitecustomize
-        except ImportError:
-            pass

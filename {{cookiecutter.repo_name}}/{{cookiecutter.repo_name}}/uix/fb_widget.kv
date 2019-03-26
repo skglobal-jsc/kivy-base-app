@@ -1,7 +1,6 @@
 #:kivy {{cookiecutter.minimum_kivy_version}}
 
 #:import joinp os.path.join
-#:import resource_find kivy.resources.resource_find
 
 <ImageButton@ButtonBehavior+Image>
     font_size: '15sp'
@@ -33,15 +32,17 @@
             size_hint_y:1
             size_hint_x:None
             width: self.minimum_width
-            AsyncImage:
+            Widget:
                 canvas:
-                    Rectangle:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
                         pos:self.pos
                         size: self.size
-                        source: '{{cookiecutter.repo_name}}/data/RoundedPic.png'
-                source:
-                    joinp(app.user_data_dir, 'pro_file_pic.jpg')\
-                    if app.fbAcc.token else '{{cookiecutter.repo_name}}/data/blank.png'
+                        radius: [9000]
+                        source:
+                            joinp(app.user_data_dir, 'pro_file_pic.jpg')\
+                            if app.fbAcc.token else '{{cookiecutter.repo_name}}/data/blank.png'
                 size_hint: None, 1
                 allow_stretch: True
                 width: root.height-dp(10) if app.fbAcc.token else 0

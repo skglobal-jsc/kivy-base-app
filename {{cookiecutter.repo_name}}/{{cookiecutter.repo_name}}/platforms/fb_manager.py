@@ -3,9 +3,7 @@ from os.path import join
 
 from kivy.utils import platform
 from kivy.storage.dictstore import DictStore
-from kivy.properties import StringProperty
 from kivy.logger import Logger
-from kivy.uix.image import Image
 
 if platform == 'android':
     pass
@@ -21,9 +19,9 @@ else:
     import requests
 
 # Credentials you get from registering a new application
-client_id = '862263937498413'
-client_secret = '36bfea20c5209ffa82a961b8dbba9da4'
-client_token = '0f781a30b10c06d0d998b6846813a026'
+client_id = ''
+client_secret = ''
+client_token = ''
 
 # OAuth endpoints given in the Facebook API documentation
 authorization_base_url = \

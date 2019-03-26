@@ -12,6 +12,7 @@ def callback(hwnd, extra):
     height = rect[3] - rect[1]
 
 def get_resolution():
+    '''Get visible frame for Windows, Mac'''
     global height, width
 
     if (height, width) == (None, None):

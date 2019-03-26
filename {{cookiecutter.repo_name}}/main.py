@@ -7,16 +7,21 @@ __version_info__ = ({{cookiecutter.version|replace('.', ', ')}})
 __version__ = '{{cookiecutter.version}}'
 __app_name__ = '{{cookiecutter.project_name}}'
 
+# Please change me to True when you want replease app
+# and change back to Fasle when done it
+# To use this in app add "from __main__ import IS_RELEASE"
 IS_RELEASE = False
 
 
 if __name__ == '__main__':
-    # Controlling the environment of Kivy
+    # Run preparation steps and fix errors when running on multi platform
+    # such as: set KIVY_HOME, copy config.ini to KIVY_HOME, enable HiDPI, ...
     from buildtools.platform import pre_run_app
     pre_run_app(__app_name__, IS_RELEASE)
 
-    from buildtools.platform import PLATFORM, FIRST_RUN
+    from buildtools.platform import PLATFORM, FIRST_RUN, IS_BINARY
 
+    # Controlling the environment of Kivy
     # View more on https://kivy.org/doc/stable/guide/environment.html
     os.environ['KIVY_WINDOW'] = 'sdl2'
     # os.environ['KIVY_TEXT'] = 'sdl2'
@@ -42,6 +47,9 @@ if __name__ == '__main__':
 
     app = {{cookiecutter.project_name|replace(' ', '')}}App()
     app._app_name = __app_name__
+    app.title = __app_name__
+
+    # Print important info of app
     Logger.info('App: Version: ' + __version__ +
                     (' Release' if IS_RELEASE else ' Debug'))
     Logger.info('App: First run: ' + str(FIRST_RUN))
