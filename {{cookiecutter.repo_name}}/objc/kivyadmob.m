@@ -5,30 +5,89 @@
 
 @implementation KivyAdmob
 
-- (void) createAds{
-    SDL_uikitviewcontroller *rootController = (SDL_uikitviewcontroller*)[[
-        (SDLUIKitDelegate*)[[UIApplication sharedApplication] delegate] window] rootViewController];
+- (id) init: (NSString *) appID {
+    if(self = [super init]) {
+        rootController = (SDL_uikitviewcontroller*)[[(SDLUIKitDelegate*)[[UIApplication sharedApplication] delegate] window] rootViewController];
+        rootDelegate = [[UIApplication sharedApplication] delegate];
 #if DEBUG
-    [GADMobileAds configureWithApplicationID:@"ca-app-pub-3940256099942544~1458002511"];
+        [GADMobileAds configureWithApplicationID:@"ca-app-pub-3940256099942544~1458002511"];
+#else
+        [GADMobileAds configureWithApplicationID: appID];
+#endif
+    }
+    return self;
+}
+
+- (void) addAdmodBanner: (NSString *)idAd {
+    if (admodBanner) {
+        return;
+    }
+#if DEBUG
     NSString * bannerID = @"ca-app-pub-3940256099942544/2934735716";
 #else
-    // TODO: - Change Production id
-    [GADMobileAds configureWithApplicationID:@"ca-app-pub-3940256099942544~1458002511"];
-    NSString * bannerID = @"ca-app-pub-3940256099942544/2934735716";
+    NSString * bannerID = idAd;
 #endif
-    GADBannerView * admod = [[GADBannerView alloc]
-                             initWithAdSize:kGADAdSizeBanner];
-    CGSize screenSize = [[[UIApplication sharedApplication] delegate] window].frame.size;
+    admodBanner = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    CGSize screenSize = [rootDelegate window].frame.size;
     float height = 50.0;
-    admod.frame = CGRectMake((screenSize.width - 320) / 2, screenSize.height - height, 320, height);
+    admodBanner.frame = CGRectMake((screenSize.width - 320) / 2, screenSize.height - height, 320, height);
+    
+    [rootController.view addSubview:admodBanner];
+    [rootController.view bringSubviewToFront:admodBanner];
+    
+    admodBanner.adUnitID = bannerID;
+    admodBanner.rootViewController = rootController;
+    
+    [admodBanner loadRequest:[GADRequest request]];
+}
 
-    [rootController.view addSubview:admod];
-    [rootController.view bringSubviewToFront:admod];
+- (void) removeBanner {
+    [admodBanner removeFromSuperview];
+    admodBanner = NULL;
+}
 
-    admod.adUnitID = bannerID;
-    admod.rootViewController = rootController;
+- (void) requestInterstitial: (NSString *)idAd {
+    if (interstitial && !interstitial.hasBeenUsed) {
+        return;
+    }
+#if DEBUG
+    interstitial = [[GADInterstitial alloc]
+                    initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+#else
+    interstitial = [[GADInterstitial alloc]
+                    initWithAdUnitID:idAd];
+#endif
+    [interstitial loadRequest:[GADRequest request]];
+}
 
-    [admod loadRequest:[GADRequest request]];
+- (Boolean) showInterstitial{
+    if (interstitial.isReady) {
+        [interstitial presentFromRootViewController:rootController];
+        return true;
+    }
+    return false;
+}
+
+- (void) requestRewardVideoAd: (NSString *)idAd {
+    if (rewardVideo && rewardVideo.isReady) {
+        return;
+    }
+    rewardVideo = [GADRewardBasedVideoAd sharedInstance];
+#if DEBUG
+    [rewardVideo loadRequest:[GADRequest request]
+                withAdUnitID:@"ca-app-pub-3940256099942544/1712485313"];
+#else
+    [rewardVideo loadRequest:[GADRequest request]
+                withAdUnitID: idAd];
+#endif
+}
+
+- (Boolean) showRewardVideoAd{
+    if (rewardVideo.isReady) {
+        [rewardVideo presentFromRootViewController:rootController];
+        return true;
+    }
+    return false;
 }
 
 @end
