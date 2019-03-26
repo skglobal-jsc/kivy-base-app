@@ -16,13 +16,13 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json,mo,ttf,ini,wav
 
 # (list) List of inclusions using pattern matching
-#source.include_patterns = {{cookiecutter.repo_name}}/data/*
+source.include_patterns = {{cookiecutter.repo_name}}/data/*
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, build, dist, logs, xcode-visibleFrame, kivy, buildtools
+source.exclude_dirs = tests, bin, build, dist, logs, xcode-visibleFrame, kivy, buildtools, java, objc
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
@@ -38,7 +38,8 @@ version.filename = %(source.dir)s/main.py
 # comma separated e.g. requirements = sqlite3,kivy
 requirements =
     python2,
-    kivy==1.10.1
+    kivy=={{cookiecutter.minimum_kivy_version}},
+    {{cookiecutter.requirements|replace('\n', ',\n    ')}}
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -48,7 +49,7 @@ requirements =
 #garden_requirements =
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/{{cookiecutter.repo_name}}/data/logo-sk-global.png
+presplash.filename = %(source.dir)s/{{cookiecutter.repo_name}}/data/logo-presplash.png
 
 # (str) Icon of the application
 icon.filename = %(source.dir)s/{{cookiecutter.repo_name}}/data/icon.png
@@ -148,7 +149,7 @@ android.ndk = 17c
 
 # (list) List of Java files to add to the android project (can be java or a
 # directory containing the files)
-#android.add_src =
+#android.add_src = ./java
 
 # (list) Android AAR archives to add (currently works only with sdl2_gradle
 # bootstrap)

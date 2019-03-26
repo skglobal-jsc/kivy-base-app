@@ -1,6 +1,6 @@
 #:kivy {{cookiecutter.minimum_kivy_version}}
 
-#:import join os.path.join
+#:import joinp os.path.join
 #:import resource_find kivy.resources.resource_find
 
 <ImageButton@ButtonBehavior+Image>
@@ -40,7 +40,7 @@
                         size: self.size
                         source: '{{cookiecutter.repo_name}}/data/RoundedPic.png'
                 source:
-                    join(app.user_data_dir, 'pro_file_pic.jpg')\
+                    joinp(app.user_data_dir, 'pro_file_pic.jpg')\
                     if app.fbAcc.token else '{{cookiecutter.repo_name}}/data/blank.png'
                 size_hint: None, 1
                 allow_stretch: True

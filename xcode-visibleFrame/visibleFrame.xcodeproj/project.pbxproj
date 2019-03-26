@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A2C6D15021F56A9500C74849 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C6D14F21F56A9500C74849 /* main.m */; };
-		A2C6D15721F56AD400C74849 /* visibleFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C6D15621F56AD400C74849 /* visibleFrame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,10 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A2C6D14C21F56A9500C74849 /* visibleFrame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = visibleFrame; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C6D14F21F56A9500C74849 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A2C6D15621F56AD400C74849 /* visibleFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = visibleFrame.m; sourceTree = "<group>"; };
-		A2C6D15821F56B9D00C74849 /* visibleFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = visibleFrame.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				A2C6D14F21F56A9500C74849 /* main.m */,
-				A2C6D15621F56AD400C74849 /* visibleFrame.m */,
-				A2C6D15821F56B9D00C74849 /* visibleFrame.h */,
 			);
 			path = visibleFrame;
 			sourceTree = "<group>";
@@ -123,7 +117,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2C6D15721F56AD400C74849 /* visibleFrame.m in Sources */,
 				A2C6D15021F56A9500C74849 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

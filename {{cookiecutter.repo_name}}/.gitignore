@@ -37,6 +37,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.apk
+bin/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

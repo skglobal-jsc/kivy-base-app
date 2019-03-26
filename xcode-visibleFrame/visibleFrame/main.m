@@ -12,8 +12,8 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSSize size = myfunc();
-        printf("%s", [[NSString stringWithFormat:@"%.0f %.0f",size.width,size.height] UTF8String]);
+        NSRect vRect = [[NSScreen mainScreen] visibleFrame];
+        printf("%s", [[NSString stringWithFormat:@"%.0f %.0f",vRect.size.width,vRect.size.height] UTF8String]);
     }
     return 0;
 }

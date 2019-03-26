@@ -4,6 +4,9 @@ from kivy.clock import Clock
 
 Builder.load_string('''
 <ShowFPS>:
+    size_hint_y: None
+    height: self.minimum_height
+    pos_hint: {'top': 1}
     Label:
         canvas:
             Color:
@@ -13,8 +16,8 @@ Builder.load_string('''
                 size: self.size
         id: show_fps
         size_hint_y: None
-        text_size: self.size
         height: dp(25)
+        text_size: self.size
         halign: 'justify'
         valign: 'middle'
         text: 'FPS: 00'

@@ -30,6 +30,8 @@ def get_resolution():
             os.chmod(visFile, st.st_mode|stat.S_IEXEC)
             width, height = [int(i) for i in \
                                 check_output(visFile).split()]
+        else:
+            return
 
         if (height, width) == (None, None):
             Exception('Can\'t get screen resolution.')

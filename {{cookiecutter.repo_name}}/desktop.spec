@@ -24,6 +24,8 @@ hiddenimports += []
 datas = [
     ('./{{cookiecutter.repo_name}}/data','{{cookiecutter.repo_name}}/data'),
     ('./{{cookiecutter.repo_name}}/*.kv', '{{cookiecutter.repo_name}}'),
+    ('./{{cookiecutter.repo_name}}/tools/*.kv', '{{cookiecutter.repo_name}}/tools'),
+    ('./{{cookiecutter.repo_name}}/uix/*.kv', '{{cookiecutter.repo_name}}/uix'),
     ('config.ini', '.'),
     ('utils/visibleFrame', 'utils')
 ]
