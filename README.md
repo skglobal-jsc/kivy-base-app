@@ -22,5 +22,5 @@ View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-pr
 
 Copyright (C) Spring Knowledge Global,.JSC. All rights reserved.
 
-Licensed under the [GNU AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)
+Licensed under the [GNU LGPLv3](https://choosealicense.com/licenses/lgpl-3.0/)
 license (see the LICENSE file).
