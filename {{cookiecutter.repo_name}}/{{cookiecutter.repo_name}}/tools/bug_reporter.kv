@@ -1,34 +1,28 @@
-#:kivy {{cookiecutter.minimum_kivy_version}}
-
-#:import MDRaisedButton kivymd.button.MDRaisedButton
-#:import MDLabel kivymd.label.MDLabel
+#:kivy 1.10.1
 
 <BugReporter>:
     txt_traceback: txt_traceback
     canvas:
-		Color:
-		    rgba: 0,0,0,0.4
+        Color:
+            rgba: .9,.9,.9,1
         Rectangle:
             pos: self.pos
             size: self.size
-    Image:
-        source: 'data/logo/kivy-icon-256.png'
-        opacity: 0.2
     BoxLayout:
         orientation: 'vertical'
         padding: 10
-        MDLabel:
+        Label:
             id: title
-            font_style: 'Subhead'
-            theme_text_color: 'Primary'
             text: 'App has experienced an internal error :('
-            font_size: '10pt'
-            pos_hint:{'center_x': 0.5, 'center_y': .5}
-            size_hint_y: None
-            size : self.size
-            height: self.size[1]
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, None
+            text_size: root.width, None
+            size: self.texture_size
             halign:"center"
             valign: "middle"
+            font_size: '19sp'
+            bold: True
+            color: .2,.2,.2, 1
         ScrollView:
             id: e_scroll
             bar_width: 10
@@ -37,9 +31,11 @@
                 id: txt_traceback
                 size_hint_y: None
                 height: max(e_scroll.height, self.minimum_height)
-                background_color: 0, 0, 0, 0.4
+                background_color: 1, 1, 1, 0.6
+                background_normal: ''
                 text: ''
-                foreground_color: 1, 1, 1, 1
+                foreground_color: .2,.2,.2, 1
+                cursor_color: 0,0,0,1
                 readonly: True
         BoxLayout:
             padding: dp(10), dp(10)
@@ -47,20 +43,23 @@
             size_hint_y:None
             height: dp(70)
             AnchorLayout:
-                anchor_x:'right'
+                anchor_x:'center'
                 anchor_y: 'center'
-                MDRaisedButton:
+                BTReport:
                     text: 'Copy'
-                    on_press: root.on_clipboard()
-                # MDRaisedButton:
-                #     text: 'Report Bug'
-                #     on_press: root.on_report()
+                    on_release: root.on_clipboard()
             AnchorLayout:
-                anchor_x:'left'
+                anchor_x:'center'
                 anchor_y: 'center'
-                MDRaisedButton:
+                BTReport:
+                    text: 'Report Bug'
+                    on_release: root.on_report()
+            AnchorLayout:
+                anchor_x:'center'
+                anchor_y: 'center'
+                BTReport:
                     text: 'Close'
-                    on_press: root.on_close()
+                    on_release: root.on_close()
 
 <ReportWarning>:
     size_hint: .5, .5
@@ -68,19 +67,41 @@
     title: 'Warning'
     BoxLayout:
         orientation: 'vertical'
-        MDLabel:
+        Label:
             text_size: self.size
             text: root.text
             padding: '4sp', '4sp'
             valign: 'middle'
-        BoxLayout:
-            MDRaisedButton:
-                size_hint_y: None
-                height: '40sp'
+        FloatLayout:
+            size_hint_y: None
+            height: dp(40)
+            Button:
                 on_release: root.dispatch('on_release')
                 text: 'Report'
-            MDRaisedButton:
-                size_hint_y: None
-                height: '40sp'
+                pos_hint:{'center_x': 0.25, 'center_y': 0.5}
+                padding_x: dp(10)
+                text_size: [None, None]
+                size_hint: None, .8
+                size: self.texture_size
+                halign: 'center'
+                valign: 'center'
+            Button:
                 on_release: root.dismiss()
                 text: 'Close'
+                pos_hint:{'center_x': 0.75, 'center_y': 0.5}
+                padding_x: dp(10)
+                text_size: [None, None]
+                size_hint: None, .8
+                size: self.texture_size
+                halign: 'center'
+                valign: 'center'
+
+<BTReport@Button>:
+    padding_x: dp(10)
+    text_size: [None, None]
+    size_hint: None, .8
+    size: self.texture_size
+    halign: 'center'
+    valign: 'center'
+    font_size: '19sp'
+    # color: .2,.2,.2, 1

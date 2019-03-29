@@ -12,7 +12,7 @@ View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-pr
 - Enable HiPDI on Windows
 - Get visible frame for Windows, Mac
 - AdMob on Android, iOS
-- Ads on desktop ([buysellads](http://buysellads.com))
+- Ads for all platforms ([buysellads](http://buysellads.com))
 - Exception handler
 - Ready to build for Windows, Mac, iOS, Android
 - Create installer for Windows, Mac

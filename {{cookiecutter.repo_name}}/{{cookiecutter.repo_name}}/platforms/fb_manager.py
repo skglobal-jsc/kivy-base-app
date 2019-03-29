@@ -16,6 +16,7 @@ else:
     from requests_oauthlib.compliance_fixes import facebook_compliance_fix
     from flask import Flask
     from flask import request
+    import OpenSSL
     import requests
 
 # Credentials you get from registering a new application
@@ -42,12 +43,24 @@ debug_url = \
     ('https://graph.facebook.com/debug_token?'
         'input_token={token_inspect}&'
         'access_token={token}')
-redirect_uri = 'https://127.0.0.1:5000/'
 
-class FbLogin(object):
+host_name = '127.0.0.1'
+port = 5000
+redirect_uri = 'https://{}:{}/'.format(host_name, port)
+
+class FBManager(object):
+    '''
+    A Facebook Login for desktop app.
+
+    Note: the redirect link requires https, when opening the web,
+    it will say 'Your connection is not private'
+
+    View more on https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
+    '''
     token = None
-    serv = None
-    list_url = []
+
+    _serv = None
+    _list_url = []
 
     def __init__(self, data_path, refresh_ui):
         self.refresh_ui = refresh_ui
@@ -56,7 +69,6 @@ class FbLogin(object):
         if not fb_db.exists('data'):
             fb_db.put('data')
         self.db = fb_db
-        # print(self.db['data'])
 
         if self.db['data'].get('token') and not platform in ('ios', 'android'):
             self.token = self.db['data']['token']
@@ -65,7 +77,7 @@ class FbLogin(object):
             pass
 
     def get_token(self):
-        if not self.serv:
+        if not self._serv:
             self._run_server()
 
         fb = OAuth2Session(client_id, redirect_uri=redirect_uri,
@@ -87,16 +99,21 @@ class FbLogin(object):
                 Logger.warning('Server: Not running with the Werkzeug Server')
             # Get the authorization verifier code from the callback url
             redirect_response = request.url
-            if redirect_response in self.list_url:
+            if redirect_response in self._list_url:
                 return 'This token has been authenticated before.'
-            self.list_url.append(redirect_response)
+            self._list_url.append(redirect_response)
             handle_thr = Thread(target=self._handle_fb,args=(redirect_response, func))
             handle_thr.setDaemon(True)
             handle_thr.start()
 
             return "All done"
 
-        self.serv = thr = Thread(target=app.run, kwargs={'ssl_context':'adhoc'})
+        kw = {
+            'ssl_context':'adhoc',
+            'host': host_name,
+            'port': port
+        }
+        self._serv = thr = Thread(target=app.run, kwargs=kw)
         thr.setDaemon(True)
         thr.start()
 
@@ -164,3 +181,11 @@ class FbLogin(object):
         if hasattr(self, 'fb'):
             del self.fb
         self.refresh_ui()
+
+if __name__ == "__main__":
+    fbm = FBManager('.', object)
+    fbm.get_token()
+    from time import sleep
+    while not fbm.token:
+        sleep(1)
+    print(fbm.token)

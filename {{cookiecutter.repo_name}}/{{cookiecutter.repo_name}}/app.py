@@ -1,9 +1,14 @@
+from os.path import join, abspath, dirname
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.base import ExceptionManager
+from kivy.resources import resource_add_path
 
 from utils.platform import PLATFORM
 
+resource_add_path(
+    abspath(join(dirname(__file__), 'data')))
 
 class {{cookiecutter.project_name|replace(' ', '')}}App(App):
     """

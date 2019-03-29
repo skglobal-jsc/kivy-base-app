@@ -14,12 +14,10 @@ from kivy.uix.popup import Popup
 from kivy.utils import platform
 from kivy import __version__
 
-from kivymd.theming import ThemeManager
-
 __all__ = ('DesignerException', )
 
-Builder.load_file(join(
-            dirname(abspath(__file__)),'bug_reporter.kv'))
+Builder.load_file(abspath(
+            join(dirname(__file__),'bug_reporter.kv')))
 
 
 class ReportWarning(Popup):
@@ -66,7 +64,6 @@ class BugReporter(FloatLayout):
 
 
 class BugReporterApp(App):
-    theme_cls = ThemeManager()
     title = "Kivy Designer - Bug reporter"
     traceback = StringProperty('')
 
@@ -142,4 +139,9 @@ class DesignerException(ExceptionHandler):
 
 
 if __name__ == '__main__':
+    from os.path import join, abspath, dirname
+    from kivy.resources import resource_add_path
+    resource_add_path(
+        abspath(join(dirname(__file__), '..', 'data')))
+
     BugReporterApp(traceback='Bug example').run()

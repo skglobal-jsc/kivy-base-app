@@ -1,26 +1,40 @@
 import webbrowser
+from os.path import join, abspath, dirname
 
 import requests
 from kivy.logger import Logger
 from kivy.lang import Builder
 from kivy.utils import get_color_from_hex as to_color
-from kivy.properties import ListProperty, StringProperty
+from kivy.properties import ListProperty, StringProperty, BooleanProperty
 from kivy.clock import Clock , ClockBase
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 
-from __main__ import IS_RELEASE
+if __name__ == '__main__':
+    IS_RELEASE = False
+    PLATFORM = 'win'
+else:
+    from __main__ import IS_RELEASE, PLATFORM
 
-Builder.load_file('mgame/platform/get_ads.kv')
+Builder.load_file(abspath(
+            join(dirname(__file__), 'get_ads.kv')))
 
 whoami_url = 'http://srv.buysellads.com/ads/whoami'
 whoami_r = r'^You are (\d+) \((\d+), (\d+); (\d+) / (\d+) / (\d+) / (\d+) / (\d+); (\d+)'
 #You are USERID (IP_ADDRESS, USER_AGENT; COUNTRY / BROWSER / OS / REGION / CITY)
-
-ZONEKEY = 'CKYD623L'
 buysellads_url = 'http://srv.buysellads.com/ads/{}.json'
 
+if IS_RELEASE:
+    ZONEKEY = ''
+else:
+    ZONEKEY = 'CKYD623L'
+
 def get_ads_buysellads(zonekey=None, segment='', forcenads=1):
+    '''
+    Get ads from buysellads
+
+    View more on http://customads.bsademo.com/reference/api.html
+    '''
     params = {
         'ignore': 'no' if IS_RELEASE else 'yes', # Whether or not to track this impression
         'track': 'no' if IS_RELEASE else 'yes', # Specify to NOT track via the bsawt cookie
@@ -93,14 +107,17 @@ class AdsBase(Widget):
 
     def __init__(self, **kw):
         super(AdsBase, self).__init__(**kw)
-        Clock.schedule_interval(self.update_content, 10)
         self.update_content()
+        self._ads_update = Clock.schedule_interval(self.update_content, 10)
 
     def update_content(self, *arg):
         for i in get_ads_buysellads():
             for j, data in i.items():
                 setattr(self, j, data)
             return
+
+        if not self.parent:
+            self._ads_update.cancel()
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
@@ -110,9 +127,43 @@ class AdsBase(Widget):
     def on_touch_up(self, touch):
         if touch.grab_current is self and self.collide_point(*touch.pos):
             touch.ungrab(self)
-            webbrowser.open(self.go_link)
+            if PLATFORM == 'android':
+                from jnius import autoclass, cast
+                Intent = autoclass('android.content.Intent')
+                Uri = autoclass('android.net.Uri')
+
+                activity = autoclass('org.kivy.android.PythonActivity').mActivity
+                open_action = Intent(Intent.ACTION_VIEW)
+                open_action.setData(Uri.parse(self.go_link))
+                activity.startActivity(open_action)
+            else:
+                webbrowser.open(self.go_link)
             return True
 
-class BannerAds(AdsBase, BoxLayout): pass
+class BannerAds(AdsBase, BoxLayout):
+    '''
+    View more on http://customads.bsademo.com/reference/stickybox.html
+    '''
+    dark_theme = BooleanProperty(False)
+    radius = ListProperty([0,0,0,0])
 
-class FullBannerAds(AdsBase, BoxLayout): pass
+class FullBannerAds(AdsBase, BoxLayout):
+    '''
+    View more on http://customads.bsademo.com/reference/flexbar.html
+    '''
+    pass
+
+
+if __name__ == '__main__':
+    from kivy.app import App
+    from kivy.uix.floatlayout import FloatLayout
+
+    class MainApp(App):
+        def build(self):
+            root = FloatLayout()
+            root.add_widget(BannerAds(pos_hint={'top': 1, 'center_x': .5}))
+            root.add_widget(FullBannerAds(pos_hint={'y': 0, 'center_x': .5}))
+
+            return root
+
+    MainApp().run()

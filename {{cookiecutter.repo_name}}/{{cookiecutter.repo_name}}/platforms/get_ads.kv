@@ -1,10 +1,13 @@
+#:kivy 1.10.1
+
 <BannerAds>:
     canvas.before:
         Color:
-            rgba: 0,0,0,1
-        Rectangle:
-            pos: self.x, self.y
+            rgba: (0,0,0,1) if root.dark_theme else (1,1,1,1)
+        RoundedRectangle:
+            pos: self.pos
             size: self.size
+            radius: root.radius
     padding: [dp(10)]
     spacing: dp(5)
     size_hint: None, None
@@ -48,6 +51,7 @@
             font_size: '16sp'
             font_name: 'data/fonts/Roboto-Regular.ttf'
             text: root.description
+            color: (1,1,1,1) if root.dark_theme else (0,0,0,1)
 
 <FullBannerAds>:
     canvas.before:

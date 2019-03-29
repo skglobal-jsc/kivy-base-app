@@ -1,3 +1,14 @@
+
+# VS Code
+.vscode/settings.json
+
+# Kivy
+icon/
+logs/
+mods/
+kivy/
+.kivy/
+
 # Vim
 *.swp
 *.swo
