@@ -1,3 +1,17 @@
+# (list) Application requirements
+# comma separated e.g. requirements = sqlite3,kivy
+[app:requirements]
+python2
+kivy=={{cookiecutter.minimum_kivy_version}}
+{{cookiecutter.requirements}}
+
+# For Android
+[app:requirements.android]
+
+# For iOS
+[app:requirements.ios]
+
+
 [app]
 
 # (str) Title of your application
@@ -33,13 +47,6 @@ source.exclude_dirs = tests, bin, build, dist, logs, kivy, buildtools, java, obj
 # (str) Application versioning (method 2)
 version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
-
-# (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements =
-    python2,
-    kivy=={{cookiecutter.minimum_kivy_version}},
-    {{cookiecutter.requirements|replace('\n', ',\n    ')}}
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -195,13 +202,16 @@ p4a.branch = update-kivent
 # project.properties automatically.)
 #android.library_references = ./{{cookiecutter.repo_name}}/java/
 
+# (list) Android shared libraries which will be added to AndroidManifest.xml using <uses-library> tag
+#android.uses_library =
+
 # (str) Android logcat filters to use
 android.logcat_filters = pythonutil:I PythonActivity:I SDL:I python:I *:S
 
 # (bool) Copy library instead of making a libpymodules.so
 #android.copy_libs = 1
 
-# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86
+# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 android.arch = armeabi-v7a
 
 #
