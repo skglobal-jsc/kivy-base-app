@@ -16,10 +16,10 @@ IS_RELEASE = False
 if __name__ == '__main__':
     # Run preparation steps and fix errors when running on multi platform
     # such as: set KIVY_HOME, copy config.ini to KIVY_HOME, enable HiDPI, ...
-    from buildtools.platform import pre_run_app
+    from utils.platform import pre_run_app
     pre_run_app(__app_name__, IS_RELEASE)
 
-    from buildtools.platform import PLATFORM, FIRST_RUN, IS_BINARY
+    from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY
 
     # Controlling the environment of Kivy
     # View more on https://kivy.org/doc/stable/guide/environment.html
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     from {{cookiecutter.repo_name}}.app import {{cookiecutter.project_name|replace(' ', '')}}App
 
     app = {{cookiecutter.project_name|replace(' ', '')}}App()
-    app._app_name = __app_name__
+    app.name = __app_name__
     app.title = __app_name__
 
     # Print important info of app
