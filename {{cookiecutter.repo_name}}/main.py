@@ -46,7 +46,7 @@ if __name__ == '__main__':
     from {{cookiecutter.repo_name}}.app import {{cookiecutter.project_name|replace(' ', '')}}App
 
     app = {{cookiecutter.project_name|replace(' ', '')}}App()
-    app.name = __app_name__
+    app._app_name = __app_name__
     app.title = __app_name__
 
     # Print important info of app
