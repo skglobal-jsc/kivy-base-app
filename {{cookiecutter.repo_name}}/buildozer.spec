@@ -22,7 +22,7 @@ source.include_patterns = {{cookiecutter.repo_name}}/data/*
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, build, dist, logs, xcode-visibleFrame, kivy, buildtools, java, objc
+source.exclude_dirs = tests, bin, build, dist, logs, kivy, buildtools, java, objc
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
@@ -258,7 +258,7 @@ log_level = 1
 warn_on_root = 1
 
 # (str) Path to build artifact storage, absolute or relative to spec file
-build_dir =
+build_dir = ./.buildozer
 
 # (str) Path to build output (i.e. .apk, .ipa) storage
 # bin_dir = ./bin
