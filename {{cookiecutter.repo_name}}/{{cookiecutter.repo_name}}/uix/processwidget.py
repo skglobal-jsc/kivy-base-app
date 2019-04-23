@@ -59,12 +59,14 @@ Builder.load_string('''
 class ProcessWidget(ModalView):
     dark_theme = BooleanProperty(False)
     ang_s = NumericProperty(0)
-    ang_e = NumericProperty(5)
+    ang_e = NumericProperty(8)
 
-    vs = 2
-    ve = 2
-    fast_s = True
-    fast_e = True
+    vs = 7
+    ve = 7
+
+    maxc = 15
+    counter = maxc
+    step = 1
 
     def __init__(self, target=None, name=None, targs=(), tgkwargs={}, **kwargs):
         super(ProcessWidget, self).__init__(**kwargs)
@@ -84,31 +86,30 @@ class ProcessWidget(ModalView):
         if not self.thr.is_alive():
             return
 
+        if self.counter == self.maxc:
+            if self.step == 1:
+                self.step += 1
+                self.vs = ProcessWidget.vs * 4
+            elif self.step == 2:
+                self.step += 1
+                self.vs = ProcessWidget.vs
+            elif self.step == 3:
+                self.step += 1
+                self.ve = ProcessWidget.vs * 4
+            else:
+                self.ve = ProcessWidget.ve
+                self.step = 1
+
+            self.counter = 0
+
         self.ang_e += self.vs
         self.ang_s += self.ve
+        self.counter += 1
         Clock.schedule_once(self.update_circle, 1/32)
-
-    def change_v(self, dt):
-        if not self.thr.is_alive():
-            return
-
-        if self.fast_s:
-            self.vs = 14
-            self.fast_s = False
-        elif self.fast_e and not self.fast_s:
-            self.ve = 14
-            self.vs = 3
-            self.fast_e = False
-        else:
-            self.ve = 3
-            self.fast_s = True
-            self.fast_e = True
-        Clock.schedule_once(self.change_v, 1/2)
 
     def on_open(self):
         self.thr.start()
         Clock.schedule_once(self.update_circle, 1/32)
-        Clock.schedule_once(self.change_v, 1/2)
 
 
 if __name__ == '__main__':

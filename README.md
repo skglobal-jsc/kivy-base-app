@@ -2,7 +2,10 @@
 
 A Cookiecutter template for NUI applications built upon the Kivy python-framework.
 
-Should be used together with: [Kivy project tools](https://bitbucket.org/skglobal/kivy_project_tool)
+Should be used together with:
+
+- Sk Global's fork: [buildozer](https://github.com/Thong-Tran/buildozer/tree/fix-errors), [python-for-android](https://github.com/Thong-Tran/python-for-android/tree/fix-error), [kivy-ios](https://github.com/Thong-Tran/kivy-ios/tree/fix-errors)
+- [Kivy project tools](https://bitbucket.org/skglobal/kivy_project_tool)
 
 View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-project/
 
@@ -17,6 +20,7 @@ View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-pr
 - Ready to build for Windows, Mac, iOS, Android
 - Create installer for Windows, Mac
 - 'Sign in with Facebook' in app
+- TextInput IME for CJK
 
 ## Copyright Notice
 

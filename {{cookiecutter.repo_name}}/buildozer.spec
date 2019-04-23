@@ -95,7 +95,7 @@ fullscreen = 1
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-#android.permissions = READ_EXTERNAL_STORAGE,INTERNET
+# android.permissions = WRITE_EXTERNAL_STORAGE,INTERNET
 
 # (int) Android API to use
 android.api = 26
@@ -170,7 +170,7 @@ android.ndk = 17c
 #android.add_activites = com.example.ExampleActivity
 
 # (str) python-for-android branch to use, defaults to stable
-p4a.branch = update-kivent
+p4a.branch = fix-error
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled
@@ -241,8 +241,8 @@ p4a.bootstrap = sdl2
 # (str) Path to a custom kivy-ios folder
 #ios.kivy_ios_dir = ../kivy-ios
 # Alternately, specify the URL and branch of a git checkout:
-ios.kivy_ios_url = https://github.com/kivy/kivy-ios
-ios.kivy_ios_branch = master
+ios.kivy_ios_url = https://github.com/Thong-Tran/kivy-ios
+ios.kivy_ios_branch = fix-errors
 
 # Another platform dependency: ios-deploy
 # Uncomment to use a custom checkout

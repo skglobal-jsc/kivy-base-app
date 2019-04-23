@@ -38,15 +38,16 @@ public class AdmodSupport {
     LayoutParams adLayoutParams;
     LinearLayout layout;
     boolean _loaded = false;
+    boolean _isdebug;
     AdMobRewardedVideoAdListener _listener;
 
-    public AdmodSupport(final String appID) {
+    public AdmodSupport(final String appID, boolean isdebug) {
         _activity = PythonActivity.mActivity;
+        _isdebug = isdebug;
         _activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 MobileAds.initialize(_activity, appID);
-                _adView = new AdView(_activity);
                 _interstitial = new InterstitialAd(_activity);
                 _rewarded = MobileAds.getRewardedVideoAdInstance(_activity);
                 _test_devices = new ArrayList<String>();
@@ -117,7 +118,7 @@ public class AdmodSupport {
         });
     }
 
-    public void newInterstitial(final String unitID) {
+    public void requestInterstitial(final String unitID) {
         _activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -146,7 +147,7 @@ public class AdmodSupport {
         });
     }
 
-    public void requestInterstitial(final Dictionary<String, Object> options) {
+    public void showInterstitial(final Dictionary<String, Object> options) {
         _activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -155,10 +156,10 @@ public class AdmodSupport {
         });
     }
 
-    public boolean isInterstitialLoaded() {
-        _loaded = _interstitial.isLoaded();
-        return _loaded;
-    }
+    // public boolean isInterstitialLoaded() {
+    //     _loaded = _interstitial.isLoaded();
+    //     return _loaded;
+    // }
 
     // public void showInterstitial(final Dictionary<String, Object> options) {
     //     _activity.runOnUiThread(new Runnable() {
@@ -173,7 +174,7 @@ public class AdmodSupport {
     //     });
     // }
 
-    public void setRewardedAdListener() {
+    public void requestRewardVideoAd() {
         _listener = new AdMobRewardedVideoAdListener();
         _activity.runOnUiThread(new Runnable() {
             @Override
@@ -183,7 +184,7 @@ public class AdmodSupport {
         });
     }
 
-    public void loadRewardedAd(final String unitID) {
+    public void showRewardVideoAd(final String unitID) {
         _activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
