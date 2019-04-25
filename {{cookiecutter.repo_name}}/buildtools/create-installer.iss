@@ -6,7 +6,7 @@
 #define MyAppPublisher "{{cookiecutter.full_name}}"
 #define MyAppURL "{{cookiecutter.app_url}}"
 #define MyAppExeName "{{cookiecutter.project_name}}.exe"
-#define MyAppIcon "./{{cookiecutter.repo_name}}/data/icon.ico"
+#define MyAppIcon "..\{{cookiecutter.repo_name}}\data\icon.ico"
 
 {% raw %}
 [Setup]
@@ -37,8 +37,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: ".\dist\{#MyAppName}\{#MyAppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\dist\{#MyAppName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\{#MyAppName}\{#MyAppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dist\{#MyAppName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

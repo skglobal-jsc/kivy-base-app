@@ -1,12 +1,8 @@
 from threading import Thread
 
 from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.modalview import ModalView
 from kivy.properties import NumericProperty, BooleanProperty
-from kivy.graphics.context_instructions import Color
-from kivy.graphics.vertex_instructions import Line
-from kivy.metrics import dp
 from kivy.clock import Clock
 
 Builder.load_string('''
@@ -59,12 +55,12 @@ Builder.load_string('''
 class ProcessWidget(ModalView):
     dark_theme = BooleanProperty(False)
     ang_s = NumericProperty(0)
-    ang_e = NumericProperty(8)
+    ang_e = NumericProperty(14)
 
     vs = 7
     ve = 7
 
-    maxc = 15
+    maxc = 20
     counter = maxc
     step = 1
 
@@ -89,13 +85,13 @@ class ProcessWidget(ModalView):
         if self.counter == self.maxc:
             if self.step == 1:
                 self.step += 1
-                self.vs = ProcessWidget.vs * 4
+                self.vs = ProcessWidget.vs * 3
             elif self.step == 2:
                 self.step += 1
                 self.vs = ProcessWidget.vs
             elif self.step == 3:
                 self.step += 1
-                self.ve = ProcessWidget.vs * 4
+                self.ve = ProcessWidget.vs * 3
             else:
                 self.ve = ProcessWidget.ve
                 self.step = 1
@@ -113,12 +109,9 @@ class ProcessWidget(ModalView):
 
 
 if __name__ == '__main__':
-    from kivy.uix.button import Button
-    from kivy.uix.label import Label
-    from kivy.uix.gridlayout import GridLayout
-    from kivy.uix.popup import Popup
     from kivy.app import App
-    from kivy.resources import resource_add_path
+    from kivy.uix.boxlayout import BoxLayout
+    from kivy.uix.button import Button
     from time import sleep
 
     class MainApp(App):

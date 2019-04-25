@@ -1,7 +1,7 @@
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 [app:requirements]
-python2
+python3
 kivy=={{cookiecutter.minimum_kivy_version}}
 {{cookiecutter.requirements}}
 
@@ -42,7 +42,7 @@ source.exclude_dirs = tests, bin, build, dist, logs, kivy, buildtools, java, obj
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-#version = 0.0.2
+#version = 0.0.1
 
 # (str) Application versioning (method 2)
 version.regex = __version__ = ['"](.*)['"]
@@ -97,18 +97,17 @@ fullscreen = 1
 # (list) Permissions
 # android.permissions = WRITE_EXTERNAL_STORAGE,INTERNET
 
-# (int) Android API to use
-android.api = 26
+# (int) Target Android API, should be as high as possible.
+#android.api = 27
 
-# (int) Minimum API required
-android.minapi = 21
+# (int) Minimum API your APK will support.
+#android.minapi = 21
 
 # (int) Android SDK version to use
-android.sdk = 26
+#android.sdk = 20
 
 # (str) Android NDK version to use
-android.ndk = 17c
-# android.ndk = 10
+#android.ndk = 17c
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
@@ -117,10 +116,10 @@ android.ndk = 17c
 #android.private_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
-# android.ndk_path = /Users/ivc/.buildozer/android/platform/crystax-ndk-10.3.2
+# android.ndk_path =
 
 # (str) Android SDK directory (if empty, it will be automatically downloaded.)
-#android.sdk_path = /Users/ivc/Library/Android/sdk
+#android.sdk_path =
 
 # (str) ANT directory (if empty, it will be automatically downloaded.)
 #android.ant_path =

@@ -64,7 +64,7 @@ pyinstaller ./desktop.spec
 
 - For Android/iOS, should use Mac to pack and have [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
-    - Android: (you should have java 8 and python 2.7)
+    - Android: (you should have java 8 to create apk)
 
     ```bash
     buildozer android debug
