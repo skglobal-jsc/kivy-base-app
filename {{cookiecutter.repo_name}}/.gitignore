@@ -9,6 +9,7 @@ mods/
 kivy/
 .kivy/
 .buildozer/
+buildozer-local.spec
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

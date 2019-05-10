@@ -4,7 +4,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.resources import resource_add_path
 
-from __main__ import IS_RELEASE, PLATFORM
+from __main__ import IS_RELEASE, PLATFORM, IS_BINARY
 
 resource_add_path(
     abspath(join(dirname(__file__), 'data')))
@@ -16,7 +16,7 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
 
     def build(self):
         # Add exception handler
-        if IS_RELEASE:
+        if IS_BINARY:
             from kivy.base import ExceptionManager
             from .tools.bug_reporter import DesignerException
             ExceptionManager.add_handler(DesignerException())

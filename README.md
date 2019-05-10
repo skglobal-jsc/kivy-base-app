@@ -17,7 +17,7 @@ View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-pr
 - AdMob for Android, iOS
 - Ads for all platforms ([buysellads](http://buysellads.com))
 - Exception handler
-- Ready to build for Windows, Mac, iOS, Android
+- Ready to build for Windows, Mac, iOS, Android (app size: ~30MB)
 - Create installer for Windows, Mac
 - 'Sign in with Facebook' in app
 - TextInput IME for CJK

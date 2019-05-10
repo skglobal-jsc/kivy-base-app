@@ -11,7 +11,22 @@ Table of Contents:
 
 - TODO
     - Add new app icon in `{{cookiecutter.repo_name}}/data` (replace existing file) and remove this todo.
-    - Change `build_dir` and `ios.codesign.debug` in buildozer.spec when create new or clone project to local (do not commit it to git).
+    - Create `buildozer-local.spec` with below content and replace it for your own when create new or clone project to local (**do not commit it to git**).
+
+    ```ini
+    [app]
+    # (str) Name of the certificate to use for signing the debug version
+    # Get a list of available identities: buildozer ios list_identities
+    ios.codesign.debug = "iPhone Developer: <lastname> <firstname> (<hexstring>)"
+
+    # (str) Name of the certificate to use for signing the release version
+    #ios.codesign.release = %(ios.codesign.debug)s
+
+    [buildozer]
+    # (str) Path to build artifact storage, absolute or relative to spec file
+    build_dir = ./.buildozer
+    ```
+
     - Generate a new GUID for Inno setup when create new project and remove this todo.
     - When change version, remember change in files: main.py and create-installer.iss
     - When you release app please change `IS_RELEASE` in main.py to `True` and remember change back to `False` when done it.
@@ -59,10 +74,10 @@ pyinstaller ./desktop.spec
 ```
 
 - To create installer:
-    - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `.\buildtools\create-installer.iss`. Output file will save in `Output` folder.
+    - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `.\buildtools\create-installer.iss`. Output file will save in `.\buildtools\Output` folder.
     - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}}.pkg'`
 
-- For Android/iOS, should use Mac to pack and have [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
+- For Android/iOS, should use Mac to pack and install latest [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
     - Android: (you should have java 8 to create apk)
 

@@ -22,11 +22,13 @@ if __name__ == '__main__':
     from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY
 
     # Controlling the environment of Kivy
+    # Those settings must match with settings in desktop.spec file
     # View more on https://kivy.org/doc/stable/guide/environment.html
+
     os.environ['KIVY_WINDOW'] = 'sdl2'
     # os.environ['KIVY_TEXT'] = 'sdl2'
     # os.environ['KIVY_VIDEO'] = 'ffpyplayer'
-    os.environ['KIVY_AUDIO'] = 'sdl2'
+    os.environ['KIVY_AUDIO'] = 'sdl2,avplayer'
     # os.environ['KIVY_CAMERA'] = ''
     # os.environ['KIVY_IMAGE'] = 'sdl2,gif'
     # os.environ['KIVY_SPELLING'] = ''
@@ -36,6 +38,9 @@ if __name__ == '__main__':
     # os.environ['KIVY_METRICS_DENSITY'] = '1'
     # os.environ['KIVY_METRICS_FONTSCALE'] = '1.2'
 
+    # Debug OpenGL
+    # os.environ['KIVY_GL_DEBUG'] = '1'
+
     if PLATFORM == 'ios':
         os.environ['KIVY_IMAGE'] = 'imageio,tex,gif'
 
@@ -43,6 +48,7 @@ if __name__ == '__main__':
     kivy.require('{{cookiecutter.minimum_kivy_version}}')
 
     from kivy.logger import Logger
+    from kivy.resources import resource_paths
     from {{cookiecutter.repo_name}}.app import {{cookiecutter.project_name|replace(' ', '')}}App
 
     app = {{cookiecutter.project_name|replace(' ', '')}}App()
@@ -56,7 +62,8 @@ if __name__ == '__main__':
     Logger.info('Kivy home: {}'.format(kivy.kivy_home_dir))
     Logger.info('Current working: {}'.format(os.getcwd()))
     Logger.info('App data: {}'.format(app.user_data_dir))
-    Logger.info('Python path: {}'.format(sys.path))
+    Logger.info('Python paths: {}'.format(sys.path))
+    Logger.info('Resource paths: {}'.format(resource_paths))
     # from kivy.metrics import Metrics
     # Logger.info('DPI: {} {}'.format(Metrics.dpi, Metrics.dpi_rounded))
 
