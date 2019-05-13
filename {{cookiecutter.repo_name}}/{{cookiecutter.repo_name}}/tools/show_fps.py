@@ -1,4 +1,5 @@
 from kivy.lang import Builder
+from kivy.app import App
 from kivy.uix.stacklayout import StackLayout
 from kivy.clock import Clock
 
@@ -24,8 +25,10 @@ Builder.load_string('''
 ''')
 
 class ShowFPS(StackLayout):
-    def __init__(self, root):
+    def __init__(self, root=None):
         super(ShowFPS, self).__init__()
+        if not root:
+            root = App.get_running_app().root_window
         root.add_widget(self)
         Clock.schedule_interval(self.update_fps, 1)
 

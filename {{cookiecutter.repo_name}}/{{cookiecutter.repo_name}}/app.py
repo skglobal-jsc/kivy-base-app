@@ -4,7 +4,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.resources import resource_add_path
 
-from __main__ import IS_RELEASE, PLATFORM, IS_BINARY
+from utils.platform import IS_RELEASE, PLATFORM, IS_BINARY
 
 resource_add_path(
     abspath(join(dirname(__file__), 'data')))
@@ -23,8 +23,9 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
 
         root = Builder.load_file('{{cookiecutter.repo_name}}/main-layout.kv')
 
-        # Display FPS of app
-        # from .tools.show_fps import ShowFPS
-        # ShowFPS(root)
-
         return root
+
+    def on_start(self):
+        # Display FPS of app
+        from .tools.show_fps import ShowFPS
+        ShowFPS()

@@ -127,5 +127,10 @@
             "regex": "",
             "multiline": false
         }
+    },
+    "requirements": {
+        "type": null,
+        "advanced": true,
+        "data": {}
     }
 }

@@ -46,4 +46,7 @@ class ObservableTranslation(Observable):
 
         # update all the kv rules attached to this text
         for func, largs, kwargs in self.observers:
-            func(largs, None, None)
+            try:
+                func(largs, None, None)
+            except ReferenceError as e:
+                pass

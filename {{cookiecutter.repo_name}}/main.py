@@ -7,16 +7,11 @@ __version_info__ = ({{cookiecutter.version|replace('.', ', ')}})
 __version__ = '{{cookiecutter.version}}'
 __app_name__ = '{{cookiecutter.project_name}}'
 
-# Please change me to True when you want replease app
-# and change back to Fasle when done it
-# To use this in app add "from __main__ import IS_RELEASE"
-IS_RELEASE = False
-
 
 if __name__ == '__main__':
     # Run preparation steps and fix errors when running on multi platform
     # such as: set KIVY_HOME, copy config.ini to KIVY_HOME, enable HiDPI, ...
-    from utils.platform import pre_run_app
+    from utils.platform import pre_run_app, IS_RELEASE
     pre_run_app(__app_name__, IS_RELEASE)
 
     from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY

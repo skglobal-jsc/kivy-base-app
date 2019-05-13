@@ -1,7 +1,6 @@
 # -*- mode: python -*-
 import os
 import sys
-import platform
 sys.path+=['.']
 
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, hookspath, runtime_hooks

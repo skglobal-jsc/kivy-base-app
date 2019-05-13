@@ -23,6 +23,10 @@ def _get_platform():
     return 'unknown'
 
 
+# Please change me to True when you want replease app
+# and change back to Fasle when done it
+IS_RELEASE = False
+
 PLATFORM = _get_platform()
 IS_BINARY = False
 FIRST_RUN = False
