@@ -39,7 +39,7 @@ source.include_patterns = {{cookiecutter.repo_name}}/data/*
 source.exclude_dirs = tests, bin, build, dist, logs, kivy, buildtools, java, objc
 
 # (list) List of exclusions using pattern matching
-#source.exclude_patterns = license,images/*/*.jpg
+source.exclude_patterns = utils/visibleFrame
 
 # (str) Application versioning (method 1)
 #version = 0.0.1
@@ -155,7 +155,7 @@ fullscreen = 1
 
 # (list) List of Java files to add to the android project (can be java or a
 # directory containing the files)
-#android.add_src = ./java
+#android.add_src = %(source.dir)s/java
 
 # (list) Android AAR archives to add (currently works only with sdl2_gradle
 # bootstrap)
@@ -199,7 +199,7 @@ p4a.branch = fix-error
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)
-#android.library_references = ./{{cookiecutter.repo_name}}/java/
+#android.library_references = %(source.dir)s/java/
 
 # (list) Android shared libraries which will be added to AndroidManifest.xml using <uses-library> tag
 #android.uses_library =
@@ -211,7 +211,7 @@ android.logcat_filters = pythonutil:I PythonActivity:I SDL:I python:I *:S
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
+android.arch = arm64-v8a
 
 #
 # Python for android (p4a) specific

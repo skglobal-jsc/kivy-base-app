@@ -1,3 +1,22 @@
+// To use this:
+// - Download and extract file: http://dl.google.com/googleadmobadssdk/googlemobileadssdkios.zip
+// - Open XCode and right-click to `Framework` folder, click `Add Files to "..." ...`
+// - Click `Copy items if needed` and add all framework files just downloaded.
+// - Add all files in `<project folder>/objc` to `Classes` folder with the same steps as above.
+// - Open file `Resources/wordsfinder-Info.plist`, add:
+
+// ```
+// <key>GADApplicationIdentifier</key>
+// <string>ca-app-pub-3940256099942544~1458002511</string>
+// ```
+
+// - To show banner this code:
+
+// ```python
+// from pyobjus import autoclass
+// native_ads = autoclass('KivyAdmob').alloc().init_("ca-app-pub-3940256099942544~1458002511")
+// native_ads.addAdmodBanner_("ca-app-pub-3940256099942544/2934735716")
+// ```
 
 
 #include "kivyadmob.h"

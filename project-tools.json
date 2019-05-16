@@ -132,5 +132,14 @@
         "type": null,
         "advanced": true,
         "data": {}
+    },
+    "libs": {
+        "type": "list_lib",
+        "advanced": false,
+        "data": {
+            "lib_kivymd": "git+https://github.com/Thong-Tran/KivyMD.git@fix-errors",
+            "lib_pymunk": "pymunk",
+            "lib_plyer": "pyobjus; sys_platform == \'darwin\'\nplyer"
+        }
     }
 }

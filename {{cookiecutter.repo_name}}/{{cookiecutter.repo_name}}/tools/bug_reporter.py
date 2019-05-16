@@ -14,7 +14,7 @@ from kivy.uix.popup import Popup
 from kivy.utils import platform
 from kivy import __version__
 
-__all__ = ('DesignerException', )
+__all__ = ('BugHandler', )
 
 Builder.load_file(abspath(
             join(dirname(__file__),'bug_reporter.kv')))
@@ -116,7 +116,7 @@ End of Traceback
         return rep
 
 
-class DesignerException(ExceptionHandler):
+class BugHandler(ExceptionHandler):
 
     raised_exception = False
     '''Indicates if the BugReporter has already raised some exception

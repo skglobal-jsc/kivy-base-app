@@ -14,6 +14,12 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
     {{cookiecutter.project_short_description|replace('\n', '\n    ')}}
     """
 
+    def __init__(self, app_name, **kwargs):
+        super({{cookiecutter.project_name|replace(' ', '')}}App, self).__init__(**kwargs)
+
+        self._app_name = app_name
+        self.title = app_name
+
     def build(self):
         # Add exception handler
         if IS_BINARY:

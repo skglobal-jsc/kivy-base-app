@@ -38,10 +38,16 @@ Table of Contents:
 Go to project folder and run:
 
 ```bash
-# On Mac, Linux
+pip3 install --upgrade virtualenv
+python3 -m virtualenv .env
 source ./.env/bin/activate
+
 # On Windows
+py -3 -m pip install --upgrade virtualenv
+py -3 -m virtualenv .env
 .\.env\Scripts\activate
+
+pip install -r requirements.txt
 python main.py
 ```
 
@@ -54,6 +60,7 @@ Go to project folder and run:
 source ./.env/bin/activate
 # On Windows
 .\.env\Scripts\activate
+
 pytest
 ```
 

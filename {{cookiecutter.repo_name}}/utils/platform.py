@@ -1,7 +1,7 @@
 
 import os
 import sys
-from os.path import expanduser
+from os.path import expanduser, join, exists
 from sys import platform as _sys_platform
 
 def _get_platform():
@@ -22,6 +22,28 @@ def _get_platform():
         return 'linux'
     return 'unknown'
 
+def _get_user_data_dir(name):
+    # Determine and return the user_data_dir.
+    data_dir = ""
+    if PLATFORM == 'ios':
+        data_dir = expanduser(join('~/Documents', name))
+    elif PLATFORM == 'android':
+        from jnius import autoclass, cast
+        PythonActivity = autoclass('org.kivy.android.PythonActivity')
+        context = cast('android.content.Context', PythonActivity.mActivity)
+        file_p = cast('java.io.File', context.getFilesDir())
+        data_dir = join(file_p.getAbsolutePath(), name)
+    elif PLATFORM == 'win':
+        data_dir = os.path.join(os.environ['APPDATA'], name)
+    elif PLATFORM == 'macosx':
+        data_dir = '~/Library/Application Support/{}'.format(name)
+        data_dir = expanduser(data_dir)
+    else:  # _platform == 'linux' or anything else...:
+        data_dir = os.environ.get('XDG_CONFIG_HOME', '~/.config')
+        data_dir = expanduser(join(data_dir, name))
+
+    return data_dir
+
 
 # Please change me to True when you want replease app
 # and change back to Fasle when done it
@@ -32,21 +54,22 @@ IS_BINARY = False
 FIRST_RUN = False
 KIVY_HOME = './.kivy'
 
-def pre_run_app(app_name, is_release):
+def pre_run_app(app_name):
     '''
     KIVY_HOME = './.kivy' when run 'python main.py'
 
     When app is packed:
-    - Windows: KIVY_HOME = '%APPDATA%/<app_name>/.kivy
-    - Mac:  KIVY_HOME = '~/.<app_name>/.kivy'
+    - Windows: KIVY_HOME = `%APPDATA%/<app_name>/.kivy`
+    - Mac:  KIVY_HOME = `~/.<app_name>/.kivy`
+    - iOS: `~/Documents/<app_name>` is returned (which is inside the
+        app's sandbox).
+    - Android: `Context.GetFilesDir + <app_name>` is returned.
 
     This function fix:
 
-    HiDPI on Windows
-
-    Run python in .app when packing by pyinstaller
-
-    Not found modules when build app by buildozer
+    - HiDPI on Windows
+    - Run python in .app when packing by pyinstaller
+    - Not found modules when build app by buildozer
     '''
     global IS_BINARY, FIRST_RUN, KIVY_HOME
 
@@ -92,37 +115,22 @@ def pre_run_app(app_name, is_release):
         if IS_BINARY:
             KIVY_HOME = os.path.join(expanduser('~'), '.'+app_name, '.kivy')
 
-    # Fix not found modules when build app by buildozer
-    if PLATFORM in ('ios', 'android'):
+    elif PLATFORM in ('ios', 'android'):
+        # Fix not found modules when build app by buildozer
         try:
             import sitecustomize
         except ImportError:
             pass
 
         IS_BINARY = True
+        KIVY_HOME = _get_user_data_dir(app_name)
 
     FIRST_RUN = not os.path.exists(KIVY_HOME)
 
-    if is_release and not IS_BINARY:
-        print('-'*20)
+    if IS_RELEASE and not IS_BINARY:
+        print('-'*80)
         print('Warning: You are in RELEASE. Please change IS_RELEASE in main.py back to False')
-        print('-'*20)
+        print('-'*80)
 
     # Set KIVY_HOME and load config
-    if PLATFORM in ('win', 'macosx'):
-        os.environ['KIVY_HOME'] = KIVY_HOME
-
-        if FIRST_RUN:
-            from configparser import RawConfigParser
-            from .resolution import get_resolution
-            config = RawConfigParser()
-            config.read('config.ini')
-            os.makedirs(KIVY_HOME)
-
-            # rsize = 0.7
-            # size = get_resolution()
-            # config.set('graphics', 'width', int(size[0]*rsize))
-            # config.set('graphics', 'height', int(size[1]*rsize))
-
-            with open(os.path.join(KIVY_HOME, 'config.ini'), 'w') as configfile:
-                config.write(configfile)
+    os.environ['KIVY_HOME'] = KIVY_HOME

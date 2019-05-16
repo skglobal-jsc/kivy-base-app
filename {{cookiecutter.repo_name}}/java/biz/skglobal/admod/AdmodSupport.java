@@ -1,6 +1,21 @@
 // This code based on KivMob project of @MichaelStott
 // Github: https://github.com/MichaelStott/KivMob
 
+// To use this:
+// - Set buildozer.spec:
+//     android.permissions = INTERNET,ACCESS_NETWORK_STATE
+//     android.add_src = %(source.dir)s/java
+//     android.gradle_dependencies = com.google.android.gms:play-services-ads:17.2.0
+//     android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713
+// - Run this code:
+//     from jnius import autoclass
+//     AdmodSupport = autoclass('biz.sk_global.admod.AdmodSupport')
+
+//     native_ads = AdmodSupport('ca-app-pub-3940256099942544~3347511713')
+//     native_ads.newBanner('ca-app-pub-3940256099942544/6300978111', False)
+//     native_ads.requestBanner(None)
+//     native_ads.showBanner()
+
 package biz.sk_global.admod;
 
 import android.app.Activity;
