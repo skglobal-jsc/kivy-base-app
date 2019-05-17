@@ -49,7 +49,7 @@ if FIRST_RUN:
     # log_name: string
     # Format string to use for the filename of log file.
 
-    Config.set('kivy', 'window_icon', 'block/data/icon.png')
+    Config.set('kivy', 'window_icon', '{{cookiecutter.repo_name}}/data/icon.png')
     # window_icon: string
     # Path of the window icon. Use this if you want to replace the default pygame icon.
 
