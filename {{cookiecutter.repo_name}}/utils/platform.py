@@ -60,7 +60,7 @@ def pre_run_app(app_name):
 
     When app is packed:
     - Windows: KIVY_HOME = `%APPDATA%/<app_name>/.kivy`
-    - Mac:  KIVY_HOME = `~/.<app_name>/.kivy`
+    - Mac:  KIVY_HOME = `~/Library/Application Support/<app_name>/.kivy`
     - iOS: `~/Documents/<app_name>` is returned (which is inside the
         app's sandbox).
     - Android: `Context.GetFilesDir + <app_name>` is returned.
@@ -72,6 +72,11 @@ def pre_run_app(app_name):
     - Not found modules when build app by buildozer
     '''
     global IS_BINARY, FIRST_RUN, KIVY_HOME
+
+    # Check if app bundled
+    # https://pyinstaller.readthedocs.io/en/latest/runtime-information.html
+    if platform in ('win', 'macosx') and getattr( sys, 'frozen', False ):
+        IS_BINARY = True
 
     if PLATFORM == 'win':
         try:
@@ -92,7 +97,6 @@ def pre_run_app(app_name):
         except OSError:
             print('Warning: Can\'t set process DPI Awareness')
 
-        IS_BINARY = os.path.exists('./base_library.zip')
         if IS_BINARY:
             KIVY_HOME = os.path.join(os.environ['APPDATA'], app_name, '.kivy')
 
@@ -113,7 +117,12 @@ def pre_run_app(app_name):
                             'app/Contents/MacOS')
 
         if IS_BINARY:
-            KIVY_HOME = os.path.join(expanduser('~'), '.'+app_name, '.kivy')
+            # app_home = os.path.join(expanduser('~'), '.'+app_name)
+            # if not os.path.exists(app_home):
+            #     os.mkdir(app_home)
+            # KIVY_HOME = os.path.join(app_home, '.kivy')
+
+            KIVY_HOME = os.path.join(_get_user_data_dir(app_name), '.kivy')
 
     elif PLATFORM in ('ios', 'android'):
         # Fix not found modules when build app by buildozer

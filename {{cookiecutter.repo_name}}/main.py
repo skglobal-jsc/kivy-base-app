@@ -36,8 +36,10 @@ if __name__ == '__main__':
     # Debug OpenGL
     # os.environ['KIVY_GL_DEBUG'] = '1'
 
-    if PLATFORM == 'ios':
-        os.environ['KIVY_IMAGE'] = 'imageio,tex,gif'
+    # Enable to write and read config on iOS
+    # if PLATFORM == 'ios':
+    #     if os.environ.get('KIVY_NO_CONFIG'):
+    #         del os.environ['KIVY_NO_CONFIG']
 
     import kivy
 

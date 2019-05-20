@@ -5,13 +5,10 @@ App config
 This module is used to configure app when the app first runs
 and some configurations before launching app.
 
+Warning: iOS actite flag KIVY_NO_CONFIG. If you want to keep those setting,
+should run `del os.environ['KIVY_NO_CONFIG']` in main.py.
 
-To genera new config:
-
-    from kivy.config import Config
-    for section in Config.sections():
-        for key, data in Config.items(section):
-            print(f"Config.set('{section}', '{key}', '{data}')")
+https://github.com/kivy/kivy-ios/blob/master/tools/templates/%7B%7B%20cookiecutter.project_name%20%7D%7D-ios/main.m#L39
 
 '''
 
@@ -27,18 +24,18 @@ if FIRST_RUN:
     kivy_modules = 0
     for module in sys.modules.keys():
         if module.startswith('kivy'):
-            # print(i)
+            # print(module)
             kivy_modules += 1
             if kivy_modules > 8 or any(
                         i in module for i in
                         ('core', 'uix', 'lang', 'graphics',
                         'input', 'app', 'factory')):
-                Logger.warn('App config: Please check you code!\n'
+                Logger.warn('App config: Please check your code!\n'
                             'Those settings may not apply because you imported'
                             'module not in minimum imported module of kivy')
                 break
 
-    # To set those setting, read this:
+    # To change those setting, read this:
     # https://kivy.org/doc/stable/api-kivy.config.html?highlight=config#available-configuration-tokens
 
     Config.set('kivy', 'log_level', 'info')

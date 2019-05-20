@@ -13,11 +13,11 @@ kivy_core = {
     'clipboard': 'sdl2',
     'image': True,
     'text': True,
-    'video':None,
-    'audio':None,
+    'video': 'null',
+    'audio': None,
     # 'audio': ['sdl2'],
-    'camera':None,
-    'spelling':None,
+    'camera': None,
+    'spelling': None,
 }
 
 if sys.platform == 'win32':
@@ -36,7 +36,7 @@ elif sys.platform == 'darwin':
     hiddenimports = []
     binaries = []
     excludes = []
-    datas = [('utils/visibleFrame', 'utils')]
+    datas = []
 
     if kivy_core['camera']:
         kivy_core['camera'] = 'avfoundation'
@@ -46,11 +46,11 @@ elif sys.platform == 'darwin':
 else:
     raise RuntimeError(
         "This build spec doesn't support your platform.\n"
-        "But it can also run well if you add some config."
+        "But it can also run well if you add some config for your target platform."
     )
 
 hiddenimports += [
-    'kivy.weakmethod' # I don't know why kivy forgot to include it
+    'kivy.weakmethod', # I don't know why pyinstaller forgot to include it
 ]
 
 excludes += [
@@ -60,7 +60,7 @@ excludes += [
 ]
 
 # ffpyplayer always includes for some reason
-if not kivy_core['video']:
+if not kivy_core['video'] or kivy_core['video'] == 'null':
     excludes.append('ffpyplayer')
 
 datas += [

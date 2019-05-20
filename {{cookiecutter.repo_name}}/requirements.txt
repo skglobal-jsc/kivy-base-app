@@ -11,6 +11,7 @@ Cython==0.28.2; sys_platform != 'win32'
 # pypiwin32; sys_platform == 'win32'
 kivy.deps.glew>=0.1.10; sys_platform == 'win32'
 kivy.deps.sdl2>=0.1.18; sys_platform == 'win32'
+pyobjus; sys_platform == 'darwin'
 
 # Project's packages
 Kivy~={{cookiecutter.minimum_kivy_version}}

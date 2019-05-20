@@ -31,3 +31,4 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
         # Display FPS of app
         # from .tools.show_fps import ShowFPS
         # ShowFPS()
+        pass

@@ -31,11 +31,12 @@
                 id: txt_traceback
                 size_hint_y: None
                 height: max(e_scroll.height, self.minimum_height)
-                background_color: 1, 1, 1, 0.6
                 background_normal: ''
                 text: ''
-                foreground_color: .2,.2,.2, 1
-                cursor_color: 0,0,0,1
+                background_color: 0, 0, 0, 0.4
+                foreground_color: 1, 1, 1, 1
+                cursor_color: 0, 0, 0, 1
+                selection_color: 0, 0, 0, 0.3
                 readonly: True
         BoxLayout:
             padding: dp(10), dp(10)
