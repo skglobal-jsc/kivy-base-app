@@ -1,4 +1,5 @@
-from os.path import join, abspath, dirname
+from os.path import join, abspath, dirname, exists
+from os import mkdir
 
 from kivy.app import App
 from kivy.lang import Builder
@@ -15,10 +16,11 @@ class {{cookiecutter.project_name|replace(' ', '')}}App(App):
     {{cookiecutter.project_short_description|replace('\n', '\n    ')}}
     """
 
-    def __init__(self, app_name, **kwargs):
+    def __init__(self, app_name, user_data_dir, **kwargs):
         super({{cookiecutter.project_name|replace(' ', '')}}App, self).__init__(**kwargs)
 
         self._app_name = app_name
+        self._user_data_dir = user_data_dir
         self.title = app_name
         self.icon = Config.get('kivy', 'window_icon')
 

@@ -13,6 +13,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.utils import platform
 from kivy import __version__
+from kivy.logger import LoggerHistory, FileHandler
 
 __all__ = ('BugHandler', )
 
@@ -33,6 +34,7 @@ class ReportWarning(Popup):
 
 class BugReporter(FloatLayout):
     txt_traceback = ObjectProperty(None)
+    log_app = ObjectProperty(None)
     '''TextView to show the traceback message
     '''
 
@@ -40,10 +42,18 @@ class BugReporter(FloatLayout):
         super(BugReporter, self).__init__(**kw)
         self.warning = None
 
+        self.ids.tab_wg.bind(current_tab=self.change_bt)
+
+    def change_bt(self, ins, current):
+        self.ids.copy_bt.text = 'Copy ' + self.ids.tab_wg.current_tab.text
+
     def on_clipboard(self, *args):
         '''Event handler to "Copy to Clipboard" button
         '''
-        Clipboard.copy(self.txt_traceback.text)
+        if self.ids.tab_wg.current_tab.text == 'Traceback':
+            Clipboard.copy(self.txt_traceback.text)
+        else:
+            Clipboard.copy(self.log_app.text)
 
     def on_report(self, *args):
         '''Event handler to "Report Bug" button
@@ -64,7 +74,6 @@ class BugReporter(FloatLayout):
 
 
 class BugReporterApp(App):
-    title = "Kivy Designer - Bug reporter"
     traceback = StringProperty('')
 
     def __init__(self, **kw):
@@ -90,21 +99,6 @@ End of Traceback
         env_info += '\nPython: v{}'.format(sys.version)
         env_info += '\nKivy: v{}'.format(__version__)
 
-        # if platform in ('win', 'linux', 'macosx'):
-        #     import pkg_resources
-        #     with open(join(dirname(realpath(__file__)),
-        #         '..',
-        #         '..',
-        #         'requirements.txt'), 'r') as f:
-        #         for i in f.readlines():
-        #             try:
-        #                 pkg_resources.require(i)
-        #             except pkg_resources.DistributionNotFound as e:
-        #                 env_info += '\n' + str(e)
-        #                 continue
-        #             except pkg_resources.RequirementParseError as e:
-        #                 continue
-
         if isinstance(self.traceback, bytes):
             encoding = sys.getfilesystemencoding()
             if not encoding:
@@ -112,6 +106,19 @@ End of Traceback
             if encoding:
                 self.traceback = self.traceback.decode(encoding)
         rep.txt_traceback.text = template.format(env_info, self.traceback)
+
+        got_log = False
+        if FileHandler.fd:
+            try:
+                with open(FileHandler.fd.name, 'r') as f:
+                    rep.log_app.text = f.read()
+                got_log = True
+            except:
+                pass
+        if not got_log:
+            rep.log_app.text = ''
+            for i in LoggerHistory.history:
+                rep.log_app.text += i.message + '\n'
 
         return rep
 

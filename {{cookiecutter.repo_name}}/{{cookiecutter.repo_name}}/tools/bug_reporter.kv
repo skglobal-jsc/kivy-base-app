@@ -1,7 +1,8 @@
 #:kivy 1.10.1
 
 <BugReporter>:
-    txt_traceback: txt_traceback
+    txt_traceback: txt_traceback.text_input
+    log_app: log_app.text_input
     canvas:
         Color:
             rgba: .9,.9,.9,1
@@ -23,21 +24,18 @@
             font_size: '19sp'
             bold: True
             color: .2,.2,.2, 1
-        ScrollView:
-            id: e_scroll
-            bar_width: 10
-            scroll_y: 0
-            TextInput:
+        TabbedPanel:
+            id: tab_wg
+            do_default_tab: False
+            background_color: (0, 0, 0, 0) #50% translucent red
+            border: [0, 0, 0, 0]
+            background_image: ''
+            TextView:
                 id: txt_traceback
-                size_hint_y: None
-                height: max(e_scroll.height, self.minimum_height)
-                background_normal: ''
-                text: ''
-                background_color: 0, 0, 0, 0.4
-                foreground_color: 1, 1, 1, 1
-                cursor_color: 0, 0, 0, 1
-                selection_color: 0, 0, 0, 0.3
-                readonly: True
+                text: 'Traceback'
+            TextView:
+                id: log_app
+                text: 'Log app'
         BoxLayout:
             padding: dp(10), dp(10)
             spacing: dp(5)
@@ -47,7 +45,8 @@
                 anchor_x:'center'
                 anchor_y: 'center'
                 BTReport:
-                    text: 'Copy'
+                    id: copy_bt
+                    text: 'Copy Traceback'
                     on_release: root.on_clipboard()
             AnchorLayout:
                 anchor_x:'center'
@@ -61,6 +60,22 @@
                 BTReport:
                     text: 'Close'
                     on_release: root.on_close()
+
+<TextView@TabbedPanelItem>:
+    text_input: text
+    ScrollView:
+        bar_width: 10
+        scroll_y: 0
+        TextInput:
+            id: text
+            size_hint_y: None
+            height: max(root.height, self.minimum_height)
+            background_color: 1, 1, 1, 0.6
+            background_normal: ''
+            text: ''
+            foreground_color: .2,.2,.2, 1
+            cursor_color: 0,0,0,1
+            readonly: True
 
 <ReportWarning>:
     size_hint: .5, .5

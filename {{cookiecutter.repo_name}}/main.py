@@ -12,9 +12,13 @@ if __name__ == '__main__':
     # Run preparation steps and fix errors when running on multi platform
     # such as: set KIVY_HOME, enable HiDPI, ...
     from utils.platform import pre_run_app
-    pre_run_app(__app_name__)
 
-    from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY, IS_RELEASE
+    # Delete all data of old version
+    del_old_data = False
+    pre_run_app(__app_name__, __version__, del_old_data)
+
+    from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY, IS_RELEASE,\
+                                REAL_DATA_DIR
 
     # Controlling the environment of Kivy
     # Those settings must match with settings in desktop.spec file
@@ -57,7 +61,7 @@ if __name__ == '__main__':
 
     from {{cookiecutter.repo_name}}.app import {{cookiecutter.project_name|replace(' ', '')}}App
 
-    app = {{cookiecutter.project_name|replace(' ', '')}}App(__app_name__)
+    app = {{cookiecutter.project_name|replace(' ', '')}}App(__app_name__, os.path.join(REAL_DATA_DIR, __version__))
 
     # Print important info of app
     Logger.info('App: Version: ' + __version__ +
