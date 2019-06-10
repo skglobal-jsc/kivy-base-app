@@ -28,8 +28,8 @@ Table of Contents:
     ```
 
     - Generate a new GUID for Inno setup when create new project and remove this todo.
-    - When change version, remember change in files: main.py and create-installer.iss
-    - When you release app please change `IS_RELEASE` in main.py to `True` and remember change back to `False` when done it.
+    - When change version, remember change in files: main.py and buildtools/create-installer.iss
+    - When you release app please change `IS_RELEASE` in utils/platform.py to `True` and remember change back to `False` when done it.
 
 ## Usage
 
@@ -84,9 +84,9 @@ pyinstaller ./desktop.spec
     - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `.\buildtools\create-installer.iss`. Output file will save in `.\buildtools\Output` folder.
     - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}} v{{cookiecutter.version}}.pkg'`
 
-- For Android/iOS, should use Mac to pack and install latest [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
+- For Android/iOS, install latest [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
-    - Android: (you should have java 8 to create apk)
+    - Android: you should have linux device (or [WSL](https://docs.microsoft.com/en-us/windows/wsl)) java 8 to create apk
 
     ```bash
     buildozer android debug

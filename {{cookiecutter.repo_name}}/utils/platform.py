@@ -107,9 +107,6 @@ def pre_run_app(app_name, app_version, del_old_data):
         except OSError:
             print('Warning: Can\'t set process DPI Awareness')
 
-        if IS_BINARY:
-            KIVY_HOME = os.path.join(os.environ['APPDATA'], app_name, '.kivy')
-
     # Fix run .app on Mac
     elif PLATFORM == 'macosx' \
         and not any(os.path.exists(i) for i in ['.Python', 'main.py']):
@@ -126,13 +123,8 @@ def pre_run_app(app_name, app_version, del_old_data):
                             os.strerror(errno.ENOENT),
                             'app/Contents/MacOS')
 
-        if IS_BINARY:
-            # app_home = os.path.join(expanduser('~'), '.'+app_name)
-            # if not os.path.exists(app_home):
-            #     os.mkdir(app_home)
-            # KIVY_HOME = os.path.join(app_home, '.kivy')
-
-            KIVY_HOME = join(DATA_DIR, '.kivy')
+        # if IS_BINARY:
+        #     DATA_DIR = os.path.join(expanduser('~'), '.'+app_name)
 
     elif PLATFORM in ('ios', 'android'):
         # Fix not found modules when build app by buildozer
@@ -142,13 +134,15 @@ def pre_run_app(app_name, app_version, del_old_data):
             pass
 
         IS_BINARY = True
-        KIVY_HOME = join(DATA_DIR, '.kivy')
 
         # Kivy-ios active key KIVY_NO_CONFIG
         if os.environ.get('KIVY_NO_CONFIG'):
             del os.environ['KIVY_NO_CONFIG']
 
-    FIRST_RUN = not exists(DATA_DIR)
+    if IS_BINARY:
+        KIVY_HOME = join(DATA_DIR, '.kivy')
+
+    FIRST_RUN = not exists(KIVY_HOME)
 
     if FIRST_RUN:
         # Get old data dir
@@ -163,8 +157,9 @@ def pre_run_app(app_name, app_version, del_old_data):
         if old_ver != [0,0,0]:
             OLD_DATA_DIR = join(REAL_DATA_DIR, '{}.{}.{}'.format(*old_ver))
 
-        # Create new data dir
-        os.mkdir(DATA_DIR)
+        if IS_BINARY and not exists(DATA_DIR):
+            # Create new data dir
+            os.mkdir(DATA_DIR)
 
         # Remove old data
         if del_old_data and OLD_DATA_DIR:
@@ -172,7 +167,7 @@ def pre_run_app(app_name, app_version, del_old_data):
 
     if IS_RELEASE and not IS_BINARY:
         print('-'*80)
-        print('Warning: You are in RELEASE. Please change IS_RELEASE in main.py back to False')
+        print('Warning: You are in RELEASE. Please change IS_RELEASE in utils/platform.py back to False')
         print('-'*80)
 
     # Set KIVY_HOME and load config

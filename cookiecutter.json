@@ -8,11 +8,10 @@
     "package_domain": "skglobal",
     "project_short_description": "Template for applications built upon the kivy-framework.",
     "version": "0.0.0",
-    "minimum_kivy_version": "1.10.1",
+    "minimum_kivy_version": "1.11.0",
     "requirements": "",
     "orientation": ["portrait", "landscape", "all"],
     "_copy_without_render": [
-        "utils/*",
-        "buildtools/*"
+        "utils/*"
     ]
 }

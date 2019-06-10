@@ -5,6 +5,7 @@ import inspect
 from functools import wraps
 from datetime import datetime
 import json
+from time import sleep
 
 from kivy.logger import Logger
 from kivy.event import EventDispatcher
@@ -12,10 +13,11 @@ from oscpy.server import OSCThreadServer
 from oscpy.client import OSCClient
 
 PORT = 8000
-PEER_PORT = 9999
+from utils.platform import IS_RELEASE
+
 MY_IP = ''
 
-if __name__ == "__main__":
+if not IS_RELEASE:
     Log_P2P = Logger.info
 else:
     Log_P2P = Logger.debug
@@ -29,14 +31,14 @@ def _catch_exception(func):
             Logger.exception('Catch Exception:')
     return f
 
-
 class SocketP2P(object):
     '''
-    A peer to peer socket server base on OSCPy and EventDispatcher
+    A peer to peer socket server base on OSCPy
     '''
     server = None
     allow_finding = False
     is_host = False
+    is_running = False
 
     config_data = ''
 
@@ -60,11 +62,11 @@ class SocketP2P(object):
     )
     _callback_collec = {}
 
-    def __init__(self, port, bind_address={}, **kwargs):
+    def __init__(self, port, bind_collection={}, **kwargs):
         # super(SocketP2P, self).__init__(**kwargs)
 
         self._port = port
-        self._bind_collection = bind_address
+        self._bind_collection = bind_collection
         self._bind_collection.update({
             '/probe': self._probe,
             '/found': self._found,
@@ -74,11 +76,8 @@ class SocketP2P(object):
             '/new_device': self._new_device,
             '/delete_device': self._delete_device
         })
-        self.reset_data()
         for event in SocketP2P.__events__:
             self._callback_collec[event] = [getattr(self, event)]
-
-        self.create_server()
 
         sock = socket.socket(AF_INET, SOCK_DGRAM)
         sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
@@ -90,9 +89,7 @@ class SocketP2P(object):
             encoding='utf8'
         )
 
-        self.server.bind('/identify_me', self._identify_me)
-        self._time = str(datetime.now())
-        self._scan_client.send_message('/identify_me', [self._time])
+        self.create_server()
 
     @_catch_exception
     def _identify_me(self, time):
@@ -102,16 +99,17 @@ class SocketP2P(object):
             self.server.unbind('/identify_me', self._identify_me)
             _, ip_address, _ = self.server.get_sender()
             MY_IP = ip_address
-            self.my_name = ip_address
             Log_P2P(f'P2P: IP: {self.myip}')
+            if self._my_name == '':
+                self.my_name = ip_address
 
     def stop(self):
         if self.server:
-            self.remove_device()
             try:
                 self.server.stop_all()
             except Exception as e:
                 Logger.exception('P2P: On close')
+        self.is_running = False
 
     def bind(self, **kwargs):
         for event, cb in kwargs.items():
@@ -122,6 +120,16 @@ class SocketP2P(object):
         if event in SocketP2P.__events__ and\
                 callback in self._callback_collec[event]:
             self._callback_collec[event].remove(callback)
+
+    def bind_address(self, address, callback):
+        self.server.bind(address, callback)
+        self._bind_collection[address] = callback
+
+    def unbind_address(self, address):
+        self.server.unbind(
+            address,
+            self._bind_collection.pop(address, None)
+        )
 
     def dispatch(self, event, *args, **kwargs):
         if event in SocketP2P.__events__:
@@ -141,6 +149,10 @@ class SocketP2P(object):
     @_catch_exception
     def create_server(self):
         self.stop()
+        self.reset_data()
+
+        # Fix [Errno 98] Address already in use
+        sleep(0.01)
 
         self.server = OSCThreadServer(encoding='utf8')
         self.server.listen(address='0.0.0.0', port=self._port, default=True)
@@ -148,7 +160,17 @@ class SocketP2P(object):
         for address, cb in self._bind_collection.items():
             self.server.bind(address, cb)
 
+        self.server.bind('/identify_me', self._identify_me)
+        self._time = str(datetime.now())
+        try:
+            self._scan_client.send_message('/identify_me', [self._time])
+        except OSError:
+            Logger.exception('P2P: No network')
+            self.server.unbind('/identify_me', self._identify_me)
+            return
+
         self.dispatch('on_create_server', self.server)
+        self.is_running = True
 
     def reset_data(self):
         self.list_device = []

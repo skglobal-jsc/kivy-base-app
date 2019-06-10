@@ -158,7 +158,7 @@ if FIRST_RUN:
     # scroll_distance: int
     # Default value of the scroll_distance property used by the ScrollView widget.
 
-    # Should use App.build_config to create your own setting for this app
+    # Should use App.build_config to create your own setting for your app
     # Read more on: https://kivy.org/doc/stable/api-kivy.app.html?highlight=config#kivy.app.App.build_config
 
     # To create your setting

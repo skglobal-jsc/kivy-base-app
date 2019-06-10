@@ -67,3 +67,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+{{cookiecutter.repo_name}}/utils/alone-server.py
+{{cookiecutter.repo_name}}/utils/fix_dns.py
+{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/uix/ShadowEffect.py
+{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/uix/effectwidget.py
+{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/uix/kivy-shadow-hack.py
+{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/uix/test_dropshadow.py
