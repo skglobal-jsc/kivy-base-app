@@ -1,3 +1,4 @@
+{% raw %}
 #! /usr/bin/env python3
 # -*- coding: iso-8859-1 -*-
 # Originally written by Barry Warsaw <barry@python.org>
@@ -635,3 +636,4 @@ if __name__ == '__main__':
     # this one creates a warning
     _('*** Seen unexpected token "%(token)s"') % {'token': 'test'}
     _('more' 'than' 'one' 'string')
+{% endraw %}
