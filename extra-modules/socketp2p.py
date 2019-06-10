@@ -12,7 +12,6 @@ from kivy.event import EventDispatcher
 from oscpy.server import OSCThreadServer
 from oscpy.client import OSCClient
 
-PORT = 8000
 from utils.platform import IS_RELEASE
 
 MY_IP = ''
@@ -99,9 +98,9 @@ class SocketP2P(object):
             self.server.unbind('/identify_me', self._identify_me)
             _, ip_address, _ = self.server.get_sender()
             MY_IP = ip_address
-            Log_P2P(f'P2P: IP: {self.myip}')
             if self._my_name == '':
                 self.my_name = ip_address
+            Log_P2P(f'P2P: IP: {self.myip}')
 
     def stop(self):
         if self.server:
@@ -319,6 +318,8 @@ if __name__ == '__main__':
     from functools import partial
     from kivy.metrics import dp
     from kivy.clock import mainthread
+
+    PORT = 8000
 
     class P2PApp(App):
         connection = None

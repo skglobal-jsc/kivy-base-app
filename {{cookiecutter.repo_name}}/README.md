@@ -102,6 +102,6 @@ pyinstaller ./desktop.spec
 
     When finish, this will open XCode and we will build app in that.
 
-If you get error, read [this](https://kivy-skglobal.readthedocs.io/en/latest/development/packaging-project/) to fix it or contact to python@sk-global.biz for further instructions.
+If you get error, read [this](https://kivy-skglobal.readthedocs.io/en/latest/development/packaging-project/) to fix it or contact to {{cookiecutter.email}} for further instructions.
 
 ## Known issues
