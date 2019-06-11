@@ -38,6 +38,7 @@ Table of Contents:
 Go to project folder and run:
 
 ```bash
+# On Mac, Linux
 pip3 install --upgrade virtualenv
 python3 -m virtualenv .env
 source ./.env/bin/activate

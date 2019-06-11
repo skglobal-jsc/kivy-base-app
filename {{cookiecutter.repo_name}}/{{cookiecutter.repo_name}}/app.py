@@ -1,5 +1,4 @@
-from os.path import join, abspath, dirname, exists
-from os import mkdir
+from os.path import join, abspath, dirname
 
 from kivy.app import App
 from kivy.lang import Builder

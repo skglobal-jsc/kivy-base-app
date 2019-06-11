@@ -118,7 +118,7 @@ if FIRST_RUN:
         # Config.set('graphics', 'height', int(size[1]*rsize))
 
     Config.set('graphics', 'minimum_width', '400')
-    Config.set('graphics', 'minimum_height', '740')
+    Config.set('graphics', 'minimum_height', '400')
     # Config.set('graphics', 'display', '-1')
     # Config.set('graphics', 'fullscreen', '0')
     # Config.set('graphics', 'left', '0')

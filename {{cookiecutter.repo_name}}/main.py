@@ -18,7 +18,7 @@ if __name__ == '__main__':
     pre_run_app(__app_name__, __version__, del_old_data)
 
     from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY, IS_RELEASE,\
-                                REAL_DATA_DIR
+                                DATA_DIR
 
     # Controlling the environment of Kivy
     # Those settings must match with settings in desktop.spec file
@@ -40,11 +40,6 @@ if __name__ == '__main__':
     # Debug OpenGL
     # os.environ['KIVY_GL_DEBUG'] = '1'
 
-    # Enable to write and read config on iOS
-    # if PLATFORM == 'ios':
-    #     if os.environ.get('KIVY_NO_CONFIG'):
-    #         del os.environ['KIVY_NO_CONFIG']
-
     import kivy
 
     # Apply settings of this app
@@ -61,7 +56,7 @@ if __name__ == '__main__':
 
     from {{cookiecutter.repo_name}}.app import {{cookiecutter.project_name|replace(' ', '')}}App
 
-    app = {{cookiecutter.project_name|replace(' ', '')}}App(__app_name__, os.path.join(REAL_DATA_DIR, __version__))
+    app = {{cookiecutter.project_name|replace(' ', '')}}App(__app_name__, DATA_DIR)
 
     # Print important info of app
     Logger.info('App: Version: ' + __version__ +
