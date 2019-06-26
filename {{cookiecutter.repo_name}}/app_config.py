@@ -5,10 +5,7 @@ App config
 This module is used to configure app when the app first runs
 and some configurations before launching app.
 
-Warning: iOS actite flag KIVY_NO_CONFIG. If you want to keep those setting,
-should run `del os.environ['KIVY_NO_CONFIG']` in main.py.
-
-https://github.com/kivy/kivy-ios/blob/master/tools/templates/%7B%7B%20cookiecutter.project_name%20%7D%7D-ios/main.m#L39
+iOS will run every time the app start. Because if not active KIVY_NO_CONFIG kivy will crash python
 
 '''
 
@@ -17,7 +14,8 @@ from kivy.config import Config
 from kivy.logger import Logger
 from utils.platform import PLATFORM, FIRST_RUN, IS_RELEASE
 
-if FIRST_RUN:
+# iOS 10 or below, if not active KIVY_NO_CONFIG kivy will crash python
+if FIRST_RUN or PLATFORM == 'ios':
     # Check this app import minimum imported module, as:
     # kivy kivy.compat kivy.logger kivy.utils
     # kivy.version kivy.deps kivy.config kivy.modules

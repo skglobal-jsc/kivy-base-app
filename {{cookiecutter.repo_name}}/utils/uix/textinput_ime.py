@@ -6,7 +6,7 @@ from kivy.logger import Logger
 
 if __name__ == "__main__":
     from kivy.core.text import LabelBase, DEFAULT_FONT
-    LabelBase.register(DEFAULT_FONT, '../data/MS Gothic.ttf')
+    LabelBase.register(DEFAULT_FONT, '../../{{cookiecutter.repo_name}}/data/MS Gothic.ttf')
 
     IME_Log = Logger.info
 else:
@@ -18,9 +18,9 @@ class TextInputIME(TextInput):
 
     Should run on SDL version 2.0.9
 
-    For iOS, must apply this patch: https://github.com/Thong-Tran/kivy-ios/blob/fix-errors/recipes/sdl2/fix-non-alpabet.patch
+    For iOS, must apply this patch: https://github.com/skglobal-jsc/kivy-ios/blob/fix-errors/recipes/sdl2/fix-non-alpabet.patch
 
-    For Android, must apply this patch: https://github.com/Thong-Tran/python-for-android/blob/fix-error/pythonforandroid/bootstraps/sdl2/build/src/patches/SDLActivity.java.patch
+    For Android, must apply this patch: https://github.com/skglobal-jsc/python-for-android/blob/fix-error/pythonforandroid/bootstraps/sdl2/build/src/patches/SDLActivity.java.patch
 
     But it disables TYPE_TEXT_VARIATION_VISIBLE_PASSWORD (may leak data from the native textinput)
     '''

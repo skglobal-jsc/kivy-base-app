@@ -85,7 +85,7 @@ pyinstaller ./desktop.spec
     - Windows: download [Inno Setup](http://www.jrsoftware.org/isinfo.php) and run `.\buildtools\create-installer.iss`. Output file will save in `.\buildtools\Output` folder.
     - Mac: run cmd `pkgbuild --install-location /Applications --component 'dist/{{cookiecutter.project_name}}.app' 'dist/Install {{cookiecutter.project_name}} v{{cookiecutter.version}}.pkg'`
 
-- For Android/iOS, install latest [buildozer fork of Sk-global](https://github.com/Thong-Tran/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
+- For Android/iOS, install latest [buildozer fork of Sk-global](https://github.com/skglobal-jsc/buildozer/tree/fix-errors). When you change code in project, please run cmd again.
 
     - Android: you should have linux device (or [WSL](https://docs.microsoft.com/en-us/windows/wsl)) java 8 to create apk
 

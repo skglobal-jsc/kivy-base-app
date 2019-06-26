@@ -8,6 +8,7 @@ logs/
 mods/
 kivy/
 .kivy/
+.data/
 .buildozer/
 buildozer-local.spec
 

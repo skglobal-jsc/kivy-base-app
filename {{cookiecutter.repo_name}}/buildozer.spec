@@ -240,7 +240,7 @@ p4a.bootstrap = sdl2
 # (str) Path to a custom kivy-ios folder
 #ios.kivy_ios_dir = ../kivy-ios
 # Alternately, specify the URL and branch of a git checkout:
-ios.kivy_ios_url = https://github.com/Thong-Tran/kivy-ios
+ios.kivy_ios_url = https://github.com/skglobal-jsc/kivy-ios
 ios.kivy_ios_branch = fix-errors
 
 # Another platform dependency: ios-deploy

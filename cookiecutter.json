@@ -8,7 +8,7 @@
     "repo_name": "{{cookiecutter.project_name|lower|replace(' ', '')}}",
     "package_domain": "skglobal",
     "version": "0.0.0",
-    "minimum_kivy_version": "1.11.0",
+    "minimum_kivy_version": "1.11.1",
     "requirements": "",
     "orientation": ["portrait", "landscape", "all"],
     "_copy_without_render": [

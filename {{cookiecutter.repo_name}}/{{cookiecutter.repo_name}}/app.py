@@ -5,7 +5,7 @@ from kivy.lang import Builder
 from kivy.config import Config
 from kivy.resources import resource_add_path
 
-from utils.platform import IS_RELEASE, PLATFORM, IS_BINARY
+from utils import IS_RELEASE, PLATFORM, IS_BINARY
 
 resource_add_path(
     abspath(join(dirname(__file__), 'data')))

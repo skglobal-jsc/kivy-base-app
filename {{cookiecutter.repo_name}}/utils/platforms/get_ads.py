@@ -8,7 +8,6 @@ from kivy.utils import get_color_from_hex as to_color
 from kivy.properties import ListProperty, StringProperty, BooleanProperty
 from kivy.clock import Clock , ClockBase
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
 
 if __name__ == '__main__':
     IS_RELEASE = False
@@ -86,7 +85,7 @@ def get_ads_buysellads(zonekey=None, segment='', forcenads=1):
             'go_link': 'https:'+i['statlink'],
         }
 
-class AdsBase(Widget):
+class AdsBase(object):
     icon = StringProperty()
     logo = StringProperty()
     bg_color = ListProperty([0,0,0,0])
@@ -140,14 +139,14 @@ class AdsBase(Widget):
                 webbrowser.open(self.go_link)
             return True
 
-class BannerAds(AdsBase, BoxLayout):
+class BannerAds(BoxLayout, AdsBase):
     '''
     View more on http://customads.bsademo.com/reference/stickybox.html
     '''
     dark_theme = BooleanProperty(False)
     radius = ListProperty([0,0,0,0])
 
-class FullBannerAds(AdsBase, BoxLayout):
+class FullBannerAds(BoxLayout, AdsBase):
     '''
     View more on http://customads.bsademo.com/reference/flexbar.html
     '''

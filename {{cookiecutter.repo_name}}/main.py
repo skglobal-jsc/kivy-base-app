@@ -11,13 +11,13 @@ __app_name__ = '{{cookiecutter.project_name}}'
 if __name__ == '__main__':
     # Run preparation steps and fix errors when running on multi platform
     # such as: set KIVY_HOME, enable HiDPI, ...
-    from utils.platform import pre_run_app
+    from utils import pre_run_app
 
     # Delete all data of old version
     del_old_data = False
     pre_run_app(__app_name__, __version__, del_old_data)
 
-    from utils.platform import PLATFORM, FIRST_RUN, IS_BINARY, IS_RELEASE,\
+    from utils import PLATFORM, FIRST_RUN, IS_BINARY, IS_RELEASE,\
                                 DATA_DIR
 
     # Controlling the environment of Kivy
@@ -43,12 +43,12 @@ if __name__ == '__main__':
     import kivy
 
     # Apply settings of this app
-    from utils import app_config
+    import app_config
 
     # Add exception handler
     if IS_BINARY:
         from kivy.base import ExceptionManager
-        from {{cookiecutter.repo_name}}.tools.bug_reporter import BugHandler
+        from utils.tools.bug_reporter import BugHandler
         ExceptionManager.add_handler(BugHandler())
 
     kivy.require('{{cookiecutter.minimum_kivy_version}}')
