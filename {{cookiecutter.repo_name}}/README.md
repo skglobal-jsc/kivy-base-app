@@ -29,7 +29,7 @@ Table of Contents:
 
     - Generate a new GUID for Inno setup when create new project and remove this todo.
     - When change version, remember change in files: main.py and buildtools/create-installer.iss
-    - When you release app please change `IS_RELEASE` in utils/platform.py to `True` and remember change back to `False` when done it.
+    - When you release app please change `IS_RELEASE` in utils/\_\_init\_\_.py to `True` and remember change back to `False` when done it.
 
 ## Usage
 

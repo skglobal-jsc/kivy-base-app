@@ -109,3 +109,5 @@ ENV/
 
 # Seg files (.seg is recommended extension for saving crypted files)
 *.seg
+
+# This project

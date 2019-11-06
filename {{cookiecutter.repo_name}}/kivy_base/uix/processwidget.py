@@ -2,7 +2,7 @@ from threading import Thread
 
 from kivy.lang import Builder
 from kivy.uix.modalview import ModalView
-from kivy.properties import NumericProperty, BooleanProperty
+from kivy.properties import NumericProperty, BooleanProperty, StringProperty
 from kivy.clock import Clock
 
 Builder.load_string('''
@@ -35,7 +35,7 @@ Builder.load_string('''
                     circle: self.center_x, self.center_y, self.width, root.ang_s, root.ang_e, 500
                     width: dp(3)
         Label:
-            text: "Please wait a moment"
+            text: root.processing_text
             font_size: '17sp'
             pos_hint: {'center_x': 0.5, 'center_y': 0.25}
             color: (1,1,1,1) if root.dark_theme else (0,0,0,1)
@@ -53,9 +53,13 @@ Builder.load_string('''
 ''')
 
 class ProcessWidget(ModalView):
+    '''
+    Run function in new thread, avoid locking UI
+    '''
     dark_theme = BooleanProperty(False)
     ang_s = NumericProperty(0)
     ang_e = NumericProperty(14)
+    processing_text = StringProperty("Please wait a moment")
 
     vs = 7
     ve = 7
@@ -67,18 +71,22 @@ class ProcessWidget(ModalView):
     def __init__(self, target=None, name=None, targs=(), tgkwargs={}, **kwargs):
         super(ProcessWidget, self).__init__(**kwargs)
         self.target = target
-        self.thr = Thread(target=self.run_target,
+        self.thr = Thread(target=self._run_target,
                                         name=name, args=targs, kwargs=tgkwargs)
-
-    def run_target(self, *args, **kwargs):
-        self.target(*args, **kwargs)
-        self.dismiss()
 
     def stop_target(self):
         self.thr.join(timeout=0.5)
         self.dismiss()
 
-    def update_circle(self, dt):
+    def on_open(self):
+        self.thr.start()
+        Clock.schedule_once(self._update_circle, 1/32)
+
+    def _run_target(self, *args, **kwargs):
+        self.target(*args, **kwargs)
+        self.dismiss()
+
+    def _update_circle(self, dt):
         if not self.thr.is_alive():
             return
 
@@ -101,11 +109,7 @@ class ProcessWidget(ModalView):
         self.ang_e += self.vs
         self.ang_s += self.ve
         self.counter += 1
-        Clock.schedule_once(self.update_circle, 1/32)
-
-    def on_open(self):
-        self.thr.start()
-        Clock.schedule_once(self.update_circle, 1/32)
+        Clock.schedule_once(self._update_circle, 1/32)
 
 
 if __name__ == '__main__':

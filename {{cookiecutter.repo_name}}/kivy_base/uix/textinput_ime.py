@@ -6,7 +6,7 @@ from kivy.logger import Logger
 
 if __name__ == "__main__":
     from kivy.core.text import LabelBase, DEFAULT_FONT
-    LabelBase.register(DEFAULT_FONT, '../../{{cookiecutter.repo_name}}/data/MS Gothic.ttf')
+    LabelBase.register(DEFAULT_FONT, R'../../{{cookiecutter.repo_name}}/data/MS Gothic.ttf')
 
     IME_Log = Logger.info
 else:

@@ -39,7 +39,7 @@ source.include_patterns = {{cookiecutter.repo_name}}/data/*
 source.exclude_dirs = tests, bin, build, dist, logs, kivy, buildtools, java, objc
 
 # (list) List of exclusions using pattern matching
-source.exclude_patterns = utils/visibleFrame
+# source.exclude_patterns =
 
 # (str) Application versioning (method 1)
 #version = 0.0.1

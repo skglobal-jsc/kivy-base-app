@@ -12,6 +12,8 @@
     "requirements": "",
     "orientation": ["portrait", "landscape", "all"],
     "_copy_without_render": [
-        "utils/*"
+        "utils/*",
+        "java/*",
+        "objc/*"
     ]
 }

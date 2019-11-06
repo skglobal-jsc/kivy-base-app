@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Python Main",
             "program": "${workspaceFolder}/main.py",
-            "console": "integratedTerminal",
+            "console": "internalConsole",
             "args": ["testing"]
         },
         {

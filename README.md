@@ -19,7 +19,6 @@ View more on: https://kivy-skglobal.readthedocs.io/en/latest/development/base-pr
 - Exception handler
 - Ready to build for Windows, Mac, iOS, Android (app size: ~30MB)
 - Create installer for Windows, Mac
-- 'Sign in with Facebook' in app
 - TextInput IME for CJK
 
 ## Copyright Notice

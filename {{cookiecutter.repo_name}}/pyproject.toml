@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "{{cookiecutter.repo_name}}"
+version = "{{cookiecutter.version}}"
+description = "{{cookiecutter.project_short_description}}"
+authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
+readme = 'README.md'
+
+[tool.poetry.dependencies]
+python = "^3.6"
+Kivy = "~{{cookiecutter.minimum_kivy_version}}"
+
+# Dependencies of kivy
+pyobjus = {version = "^1.1.0", platform = "darwin"}
+"kivy_deps.sdl2" = {version = "~0.1.22", platform = "win32"}
+"kivy_deps.glew" = {version = "~0.1.12", platform = "win32"}
+
+# Project's packages
+
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pyinstaller = {version = "^3.5", platform = "!= 'win32'"}
+cython = {version = "0.29.10", platform = "!= 'win32'"}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

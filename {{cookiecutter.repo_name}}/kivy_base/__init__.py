@@ -87,22 +87,19 @@ def pre_run_app(app_name, app_version, del_old_data):
         IS_BINARY = True
 
     if PLATFORM == 'win':
-        try:
-            # Fix High DPI Aware for app Windows
-            # Reference https://stackoverflow.com/questions/44398075/can-dpi-scaling-be-enabled-disabled-programmatically-on-a-per-session-basis/44422362#44422362
-            import ctypes
-            shcore = ctypes.windll.shcore
+        # Fix High DPI Aware for app Windows
+        # Reference https://stackoverflow.com/questions/44398075/can-dpi-scaling-be-enabled-disabled-programmatically-on-a-per-session-basis/44422362#44422362
+        import ctypes
+        shcore = ctypes.windll.shcore
 
-            # Query DPI Awareness (Windows 10 and 8)
-            # awareness = ctypes.c_int()
-            # errorCode = shcore.GetProcessDpiAwareness(0, ctypes.byref(awareness))
+        # Query DPI Awareness (Windows 10 and 8)
+        # awareness = ctypes.c_int()
+        # errorCode = shcore.GetProcessDpiAwareness(0, ctypes.byref(awareness))
 
-            # if errorCode != 0:
-            # Set DPI Awareness  (Windows 10 and 8)
-            # the argument is the awareness level, which can be 0, 1 or 2
-            if shcore.SetProcessDpiAwareness(2) != 0:
-                raise OSError
-        except OSError:
+        # if errorCode != 0:
+        # Set DPI Awareness  (Windows 10 and 8)
+        # the argument is the awareness level, which can be 0, 1 or 2
+        if shcore.SetProcessDpiAwareness(2) != 0:
             print('Warning: Can\'t set process DPI Awareness')
 
     # Fix run .app on Mac
@@ -170,7 +167,7 @@ def pre_run_app(app_name, app_version, del_old_data):
 
     if IS_RELEASE and not IS_BINARY:
         print('-'*80)
-        print('Warning: You are in RELEASE. Please change IS_RELEASE in utils/platform.py back to False')
+        print('Warning: You are in RELEASE. Please change IS_RELEASE in utils/__init__.py back to False')
         print('-'*80)
 
     # Set KIVY_HOME and load config

@@ -12,7 +12,7 @@ iOS will run every time the app start. Because if not active KIVY_NO_CONFIG kivy
 import sys
 from kivy.config import Config
 from kivy.logger import Logger
-from utils.platform import PLATFORM, FIRST_RUN, IS_RELEASE
+from kivy_base import PLATFORM, FIRST_RUN, IS_RELEASE
 
 # iOS 10 or below, if not active KIVY_NO_CONFIG kivy will crash python
 if FIRST_RUN or PLATFORM == 'ios':
@@ -109,7 +109,7 @@ if FIRST_RUN or PLATFORM == 'ios':
     # Set 'log_maxfiles' to -1 to disable logfile purging (eg keep all logfiles).
 
     if PLATFORM in ('win', 'macosx'):
-        from .resolution import get_resolution
+        # from kivy_base.resolution import get_resolution
         rsize = 0.85
         # size = get_resolution()
         # Config.set('graphics', 'width', int(size[1]*rsize/1.7777))
